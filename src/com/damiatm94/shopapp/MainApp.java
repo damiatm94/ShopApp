@@ -17,6 +17,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 public class MainApp extends Application
 {
     private Stage primaryStage;
@@ -61,9 +65,15 @@ public class MainApp extends Application
         //Set the application icon
         this.primaryStage.getIcons().add(new Image("file:resources/images/ShopAppIcon.png"));
 
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("myDatabase");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
         initRootLayout();
 
         showProductsOverview();
+
+        entityManager.close();
+        entityManagerFactory.close();
     }
 
 
