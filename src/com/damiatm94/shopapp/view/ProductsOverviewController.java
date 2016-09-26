@@ -1,6 +1,7 @@
 package com.damiatm94.shopapp.view;
 
 import com.damiatm94.shopapp.MainApp;
+import com.damiatm94.shopapp.domain.ProductToDB;
 import com.damiatm94.shopapp.model.Product;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -307,6 +308,16 @@ public class ProductsOverviewController
             }
 
         }
+    }
+
+    /**
+     * This is a sample method checking if persisting objects to MySQL database work.
+     * It will be assigned to another graphic component in the future.
+     */
+    @FXML
+    private void handlePersistToDB()
+    {
+        ProductToDB.persistProductsToDB();
     }
 
     /**

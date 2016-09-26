@@ -2,6 +2,7 @@ package com.damiatm94.shopapp.view;
 
 import com.damiatm94.shopapp.MainApp;
 import javafx.fxml.FXML;
+import javafx.scene.control.Separator;
 
 /**
  * Created by damian on 24.07.16.

@@ -65,15 +65,9 @@ public class MainApp extends Application
         //Set the application icon
         this.primaryStage.getIcons().add(new Image("file:resources/images/ShopAppIcon.png"));
 
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("myDatabase");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-
         initRootLayout();
 
         showProductsOverview();
-
-        entityManager.close();
-        entityManagerFactory.close();
     }
 
 
