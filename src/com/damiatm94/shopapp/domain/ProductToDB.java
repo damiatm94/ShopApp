@@ -10,25 +10,32 @@ import static com.damiatm94.shopapp.MainApp.getProductData;
  */
 
 @Entity
+@Table(name="Warehouse")
+//@Table(name = "Warehouse")
 public class ProductToDB
 {
     @Id
+    @GeneratedValue
     private long id;
+    @Column(name = "Product_name")
     private String dbProductName;
+    @Column(name = "Price")
     private double dbPrice;
+    @Column(name = "Amount")
     private int dbAmount;
+    @Column(name = "Minimal_amount")
     private int dbMinAmount;
 
     public static void persistProductsToDB()
     {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("myDatabase");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
 
         for (int i = 0; i < getProductData().size(); i++)
         {
             ProductToDB productToDB = new ProductToDB();
 
-            productToDB.setId(i);
             productToDB.setDbProductName(getProductData().get(i).getProductName());
             productToDB.setDbPrice(getProductData().get(i).getPrice());
             productToDB.setDbAmount(getProductData().get(i).getAmount());
@@ -37,11 +44,10 @@ public class ProductToDB
 //            System.out.println(productToDB.getDbProductName() + ", " + productToDB.getDbPrice() + ", " +
 //                    productToDB.getDbAmount() + ", " + productToDB.getDbMinAmount());
 
-            entityManager.getTransaction().begin();
             entityManager.persist(productToDB);
-            entityManager.getTransaction().commit();
         }
 
+        entityManager.getTransaction().commit();
         entityManager.close();
         entityManagerFactory.close();
     }
