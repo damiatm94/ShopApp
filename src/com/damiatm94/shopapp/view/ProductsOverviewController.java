@@ -23,31 +23,16 @@ import static com.damiatm94.shopapp.MainApp.getProductData;
  */
 public class ProductsOverviewController
 {
-    @FXML
-    private TableView<Product> productsTable;
-    @FXML
-    private TableColumn<Product, String> productNameColumn;
-    @FXML
-    private TableColumn<Product, Double> priceColumn;
-    @FXML
-    private TableColumn<Product, Integer> amountColumn;
-    @FXML
-    private TableColumn<Product, Integer> minAmountColumn;
+    @FXML private WarehouseTabController warehouseTabController;
 
-    @FXML
-    private Button deleteButton;
+    @FXML private OrdersTabController ordersTabController;
 
-    @FXML
-    private Button editButton;
+    @FXML private SalesTabController salesTabController;
 
-    @FXML
-    private VBox container;
 
     private static List<AnchorPane> anchorPanes = new ArrayList<>();
     private static List<Label> labels = new ArrayList<>();
     private static List<TextField> textFields = new ArrayList<>();
-    private List<Button> minusButtons = new ArrayList<>();
-    private List<Button> plusButtons = new ArrayList<>();
 
     // Reference to the main application.
     private MainApp mainApp;
@@ -105,6 +90,6 @@ public class ProductsOverviewController
         this.mainApp = mainApp;
 
         // Add observable list data to the table
-        productsTable.setItems(getProductData());
+        //productsTable.setItems(getProductData());
     }
 }
