@@ -47,6 +47,11 @@ public class SalesTabController implements ProductsListener
         SalesTabController.selectedSalesProduct = selectedProduct;
     }
 
+    public SalesTabController()
+    {
+
+    }
+
     @FXML
     private void initialize()
     {
@@ -247,9 +252,9 @@ public class SalesTabController implements ProductsListener
     {
         if (product != null)
         {
-            labels.get(3*selectedIndexForSales).setText(product.getProductName());
-            labels.get(3*selectedIndexForSales + 1).setText(Double.toString(product.getPrice()));
-            labels.get(3*selectedIndexForSales + 2).setText(Integer.toString(product.getAmount()));
+            labels.get(3 * selectedIndexForSales).setText(product.getProductName());
+            labels.get(3 * selectedIndexForSales + 1).setText(Double.toString(product.getPrice()));
+            labels.get(3 * selectedIndexForSales + 2).setText(Integer.toString(product.getAmount()));
         }
     }
 

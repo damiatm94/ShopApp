@@ -53,17 +53,11 @@ public class SellDialogController
     {
     }
 
-
     public boolean isButtonOkClicked()
     {
         return buttonOkClicked;
     }
 
-    /**
-     * Sets the stage of this dialog.
-     *
-     * @param dialogStage
-     */
     public void setDialogStage(Stage dialogStage)
     {
         this.dialogStage = dialogStage;
@@ -82,7 +76,6 @@ public class SellDialogController
         gridPane.setPrefWidth(600.0);
         gridPane.setVgap(10.0);
 
-
         //---------------------------------ADDING COLUMNS---------------------------------------
         for (int j = 0; j < 3; j++)
         {
@@ -94,7 +87,6 @@ public class SellDialogController
             column.setHalignment(HPos.CENTER);
             gridPane.getColumnConstraints().add(column);
         }
-
 
         //---------------------Adding sellLabels to gridPane and sellLabels ArrayList----------------------
         for (int k = 0; k < 3; k++)
@@ -124,7 +116,6 @@ public class SellDialogController
             }
         }
 
-
         //----------------------------------Adding children-------------------------------------
         anchorPane.getChildren().add(gridPane);
         anchorPane.setTopAnchor(gridPane, 0.0);
@@ -149,9 +140,7 @@ public class SellDialogController
 
             labelsIterator += 3;
         }
-
         calculateAndShowSum();
-
     }
 
     @FXML
@@ -176,14 +165,10 @@ public class SellDialogController
             labelIndex += 3;
         }
 
-
         buttonOkClicked = true;
         dialogStage.close();
     }
 
-    /**
-     * Called when the user clicks cancel.
-     */
     @FXML
     private void handleButtonCancel()
     {

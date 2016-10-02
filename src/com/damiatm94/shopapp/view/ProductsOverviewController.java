@@ -5,6 +5,7 @@ import com.damiatm94.shopapp.domain.ProductToDB;
 import com.damiatm94.shopapp.model.Product;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,39 +24,30 @@ import static com.damiatm94.shopapp.MainApp.getProductData;
  */
 public class ProductsOverviewController
 {
-    @FXML private WarehouseTabController warehouseTabController;
-
+    @FXML private WarehouseTabController warehouseTabController = new WarehouseTabController();
     @FXML private OrdersTabController ordersTabController;
-
     @FXML private SalesTabController salesTabController;
-
 
     private static List<AnchorPane> anchorPanes = new ArrayList<>();
     private static List<Label> labels = new ArrayList<>();
     private static List<TextField> textFields = new ArrayList<>();
 
     // Reference to the main application.
-    private MainApp mainApp;
+    private MainApp ourMainApp;
 
     public static List<TextField> getTextFields()
     {
         return textFields;
     }
-
     public static List<Label> getLabels()
     {
         return labels;
     }
-
     public static List<AnchorPane> getAnchorPanes()
     {
         return anchorPanes;
     }
 
-    /**
-     * The constructor.
-     * The constructor is called before the initialize() method.
-     */
     public ProductsOverviewController()
     {
     }
@@ -67,7 +59,6 @@ public class ProductsOverviewController
     @FXML
     private void initialize()
     {
-
     }
 
     /**
@@ -87,9 +78,11 @@ public class ProductsOverviewController
      */
     public void setMainApp(MainApp mainApp)
     {
-        this.mainApp = mainApp;
+        this.ourMainApp = mainApp;
+        //warehouseTabController.setMainApp(ourMainApp);
 
         // Add observable list data to the table
         //productsTable.setItems(getProductData());
     }
+
 }
