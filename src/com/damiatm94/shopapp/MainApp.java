@@ -29,7 +29,6 @@ public class MainApp extends Application
 
     public MainApp()
     {
-
     }
 
     public static ObservableList<Product> getProductData()
@@ -96,43 +95,6 @@ public class MainApp extends Application
         } catch (IOException e)
         {
             e.printStackTrace();
-        }
-    }
-
-    public boolean showSellDialog(List<Product> productList)
-    {
-        try
-        {
-            // Load the fxml file and create a new stage for the popup dialog.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/SellDialog.fxml"));
-            BorderPane sellDialogPane = loader.load();
-
-            // Create the dialog Stage.
-            Stage dialogStage = new Stage();
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(sellDialogPane);
-            dialogStage.setScene(scene);
-            dialogStage.setTitle("Summary");
-            //dialogStage.setResizable(false);
-            //primaryStage.setResizable(true);
-
-            // Set product into the controller.
-            SellDialogController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.displayProductsInfo(productList);
-
-            // Show the dialog and wait until the user closes it
-            dialogStage.showAndWait();
-
-            return controller.isButtonOkClicked();
-
-
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-            return false;
         }
     }
 

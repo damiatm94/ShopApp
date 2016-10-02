@@ -10,5 +10,4 @@ public interface ProductsListener
     void handleDeleteProduct();
     void handleNewProduct(Product product);
     void handleEditProduct();
-    void addProductToSalesPanel(Product product);
 }

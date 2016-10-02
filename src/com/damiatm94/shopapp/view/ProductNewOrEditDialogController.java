@@ -14,7 +14,7 @@ import com.damiatm94.shopapp.model.Product;
 /**
  * Dialog to edit details of a person.
  */
-public class ProductEditDialogController
+public class ProductNewOrEditDialogController
 {
 
     @FXML

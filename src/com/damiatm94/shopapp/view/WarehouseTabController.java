@@ -77,8 +77,9 @@ public class WarehouseTabController implements ProductsListener
 
         if (okClicked)
         {
+            System.out.println(getProductData().size());
             getProductData().add(newProduct);
-            salesTab.addProductToSalesPanel(newProduct);
+            System.out.println(getProductData().size());
             salesTab.handleNewProduct(newProduct);
         }
     }
@@ -92,7 +93,7 @@ public class WarehouseTabController implements ProductsListener
         if (selectedProduct != null)
         {
             boolean isNewProduct = false;
-            boolean okClicked = mainApp.showProductEditDialog(selectedProduct, isNewProduct);
+            boolean okClicked = showProductNewOrEditDialog(selectedProduct, isNewProduct);
             if (okClicked)
             {
                 setSelectedProduct(selectedProduct);
@@ -119,19 +120,6 @@ public class WarehouseTabController implements ProductsListener
         Product newProduct = new Product();
         handleNewProduct(newProduct);
     }
-
-    @Override
-    public void addProductToSalesPanel(Product product)
-    {
-    }
-
-//    public void setMainApp(MainApp mainApp)
-//    {
-//        this.mainApp = mainApp;
-//
-//        //Add observable list data to the table
-//        productsTable.setItems(getProductData());
-//    }
 
     public boolean showProductNewOrEditDialog(Product product, boolean isNewProduct)
     {
@@ -160,7 +148,7 @@ public class WarehouseTabController implements ProductsListener
             }
 
             // Set the person into the controller.
-            ProductEditDialogController controller = loader.getController();
+            ProductNewOrEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setProduct(product, isNewProduct);
 

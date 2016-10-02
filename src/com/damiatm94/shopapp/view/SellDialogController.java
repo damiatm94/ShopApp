@@ -125,7 +125,7 @@ public class SellDialogController
         container.getChildren().add(anchorPane);
     }
 
-    public void displayProductsInfo(List<Product> productList)
+    public void displayListOfSellingProducts(List<Product> productList)
     {
         this.productList = productList;
         createSpaceForProductsInfo(productList);

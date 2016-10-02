@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.damiatm94.shopapp.view.OrdersTabController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.damiatm94.shopapp.view.OrdersTabController">
    <center>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -46,7 +46,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                  <ScrollPane fitToWidth="true" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" />
                      </VBox.margin>
@@ -64,7 +64,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <ScrollPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                  <ScrollPane fitToWidth="true" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </VBox.margin>
@@ -78,7 +78,7 @@
       <VBox prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <Separator prefWidth="200.0" />
-            <ButtonBar prefHeight="100.0" prefWidth="200.0">
+            <ButtonBar minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0">
               <buttons>
                 <Button mnemonicParsing="false" text="Persist to DB" />
               </buttons>

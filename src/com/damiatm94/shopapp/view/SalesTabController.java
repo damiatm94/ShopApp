@@ -3,15 +3,20 @@ package com.damiatm94.shopapp.view;
 import com.damiatm94.shopapp.MainApp;
 import com.damiatm94.shopapp.model.Product;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +27,9 @@ import static com.damiatm94.shopapp.MainApp.getProductData;
  */
 public class SalesTabController implements ProductsListener
 {
-    @FXML
-    private VBox container;
+    @FXML private VBox container;
+
+    private MainApp mainApp;
 
     private static List<AnchorPane> anchorPanes = new ArrayList<>();
     private static List<Label> labels = new ArrayList<>();
@@ -33,9 +39,6 @@ public class SalesTabController implements ProductsListener
 
     private static int selectedIndexForSales;
     private static Product selectedSalesProduct;
-
-    // Reference to the main application.
-    private MainApp mainApp;
 
     public static void setSelectedIndexForSales(int selectedIndexForSales)
     {
@@ -49,7 +52,6 @@ public class SalesTabController implements ProductsListener
 
     public SalesTabController()
     {
-
     }
 
     @FXML
@@ -224,12 +226,7 @@ public class SalesTabController implements ProductsListener
                 productsToSell.add(getProductData().get(m));
             }
         }
-        mainApp.showSellDialog(productsToSell);
-    }
-
-    public void setMainApp(MainApp mainApp)
-    {
-        this.mainApp = mainApp;
+        showSellDialog(productsToSell);
     }
 
     @Override
@@ -261,7 +258,8 @@ public class SalesTabController implements ProductsListener
     @Override
     public void handleNewProduct(Product product)
     {
-        setNewProductDetails(product);
+        //addProductToSalesPanel(product);
+        //setNewProductDetails(product);
     }
 
     @Override
@@ -269,4 +267,43 @@ public class SalesTabController implements ProductsListener
     {
         setEditProductDetails(selectedSalesProduct);
     }
+
+    public boolean showSellDialog(List<Product> productList)
+    {
+        try
+        {
+            mainApp = new MainApp();
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/SellDialog.fxml"));
+            BorderPane sellDialogPane = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainApp.getPrimaryStage());
+            Scene scene = new Scene(sellDialogPane);
+            dialogStage.setScene(scene);
+            dialogStage.setTitle("Summary");
+            //dialogStage.setResizable(false);
+            //primaryStage.setResizable(true);
+
+            // Set product into the controller.
+            SellDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.displayListOfSellingProducts(productList);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isButtonOkClicked();
+
+
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
