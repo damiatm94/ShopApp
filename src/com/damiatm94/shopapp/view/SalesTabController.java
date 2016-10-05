@@ -11,6 +11,7 @@ import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
@@ -27,7 +28,10 @@ import static com.damiatm94.shopapp.MainApp.getProductData;
  */
 public class SalesTabController implements ProductsListener
 {
-    @FXML private VBox container;
+    @FXML private BorderPane salesTab;
+    //@FXML private VBox container;
+    private ScrollPane ourContainer = new ScrollPane();
+    private VBox createdVBox = new VBox();
 
     private MainApp mainApp;
 
@@ -57,8 +61,14 @@ public class SalesTabController implements ProductsListener
     @FXML
     private void initialize()
     {
+        createdVBox.setPrefWidth(1000.0);
+        createdVBox.setFillWidth(true);
+        //ourContainer.setContent(createdVBox);
+
+
+
         // Load some dummy products' data if they are existing
-        loadDummiesToSalesPanel();
+        //loadDummiesToSalesPanel();
     }
 
     /**
@@ -66,9 +76,11 @@ public class SalesTabController implements ProductsListener
      */
     public void addProductToSalesPanel(Product product)
     {
+        System.out.println(anchorPanes.size());
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.setMaxWidth(Double.MAX_VALUE);
         anchorPanes.add(anchorPane);
+        System.out.println(anchorPanes.size());
 
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(10.0, 0.0, 0.0, 0.0));
@@ -180,7 +192,11 @@ public class SalesTabController implements ProductsListener
         anchorPane.setLeftAnchor(gridPane, 0.0);
         anchorPane.setRightAnchor(gridPane, 0.0);
 
-        container.getChildren().add(anchorPane);
+        createdVBox.getChildren().add(anchorPane);
+        ourContainer.setContent(createdVBox);
+        salesTab.setCenter(ourContainer);
+
+        //container.getChildren().add(anchorPane);
     }
 
     /**
@@ -232,7 +248,7 @@ public class SalesTabController implements ProductsListener
     @Override
     public void handleDeleteProduct()
     {
-        container.getChildren().remove(anchorPanes.get(selectedIndexForSales));
+        //container.getChildren().remove(anchorPanes.get(selectedIndexForSales));
 
         labels.remove(3 * selectedIndexForSales + 2);
         labels.remove(3 * selectedIndexForSales + 1);
@@ -258,8 +274,9 @@ public class SalesTabController implements ProductsListener
     @Override
     public void handleNewProduct(Product product)
     {
-        //addProductToSalesPanel(product);
-        //setNewProductDetails(product);
+        addProductToSalesPanel(product);
+        setNewProductDetails(product);
+        System.out.println("Dzialam!");
     }
 
     @Override

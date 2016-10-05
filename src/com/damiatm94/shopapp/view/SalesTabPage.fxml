@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.damiatm94.shopapp.view.SalesTabController">
+<BorderPane fx:id="salesTab" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.damiatm94.shopapp.view.SalesTabController">
             <top>
                 <GridPane BorderPane.alignment="CENTER">
                     <columnConstraints>
@@ -42,13 +42,13 @@
                 </GridPane>
             </top>
             <center>
-                <ScrollPane fitToWidth="true" minHeight="-Infinity" prefHeight="300.0" BorderPane.alignment="CENTER">
-                    <content>
-                        <VBox fx:id="container" fillWidth="true" minWidth="-Infinity" prefWidth="1000.0">
+                <!--<ScrollPane fitToWidth="true" minHeight="-Infinity" prefHeight="300.0" BorderPane.alignment="CENTER">-->
+                    <!--<content>-->
+                        <!--<VBox fx:id="container" fillWidth="true" minWidth="-Infinity" prefWidth="1000.0">-->
 
-                        </VBox>
-                    </content>
-                </ScrollPane>
+                        <!--</VBox>-->
+                    <!--</content>-->
+                <!--</ScrollPane>-->
             </center>
             <bottom>
                 <ButtonBar prefHeight="100.0" prefWidth="1024.0" BorderPane.alignment="CENTER">

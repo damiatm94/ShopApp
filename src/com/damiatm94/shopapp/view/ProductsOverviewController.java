@@ -24,7 +24,7 @@ import static com.damiatm94.shopapp.MainApp.getProductData;
  */
 public class ProductsOverviewController
 {
-    @FXML private WarehouseTabController warehouseTabController = new WarehouseTabController();
+    @FXML private WarehouseTabController warehouseTabController;
     @FXML private OrdersTabController ordersTabController;
     @FXML private SalesTabController salesTabController;
 
@@ -59,6 +59,7 @@ public class ProductsOverviewController
     @FXML
     private void initialize()
     {
+        warehouseTabController.injectMainController(this);
     }
 
     /**

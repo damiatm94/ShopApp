@@ -29,6 +29,8 @@ public class WarehouseTabController implements ProductsListener
     // Reference to the main application.
     private MainApp mainApp;
 
+    private ProductsOverviewController productsOverviewController;
+
     @FXML private TableView<Product> productsTable;
     @FXML private TableColumn<Product, String> productNameColumn;
     @FXML private TableColumn<Product, Double> priceColumn;
@@ -77,9 +79,7 @@ public class WarehouseTabController implements ProductsListener
 
         if (okClicked)
         {
-            System.out.println(getProductData().size());
             getProductData().add(newProduct);
-            System.out.println(getProductData().size());
             salesTab.handleNewProduct(newProduct);
         }
     }
@@ -116,7 +116,6 @@ public class WarehouseTabController implements ProductsListener
 
     @FXML public void handleOneButton()
     {
-        System.out.println("Klikniety przycisk!");
         Product newProduct = new Product();
         handleNewProduct(newProduct);
     }
@@ -161,5 +160,10 @@ public class WarehouseTabController implements ProductsListener
             e.printStackTrace();
             return false;
         }
+    }
+
+    public void injectMainController(ProductsOverviewController productsOverviewController)
+    {
+        this.productsOverviewController = productsOverviewController;
     }
 }

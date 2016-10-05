@@ -11,18 +11,18 @@
             <tabs>
                 <Tab text="Warehouse">
                     <content>
-                        <fx:include fx:id="WarehouseTab" source="WarehouseTabPage.fxml"/>
+                        <fx:include fx:id="warehouseTab" source="WarehouseTabPage.fxml"/>
 
                     </content>
                 </Tab>
                 <Tab text="Orders">
                     <content>
-                        <fx:include fx:id="OrdersTab" source="OrdersTabPage.fxml"/>
+                        <fx:include fx:id="ordersTab" source="OrdersTabPage.fxml"/>
                     </content>
                 </Tab>
                 <Tab text="Sales panel">
                     <content>
-                        <fx:include fx:id="SalesPanelTab" source="SalesTabPage.fxml"/>
+                        <fx:include fx:id="salesTab" source="SalesTabPage.fxml"/>
                     </content>
                 </Tab>
             </tabs>

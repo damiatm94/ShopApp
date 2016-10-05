@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="600" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.damiatm94.shopapp.view.WarehouseTabController">
+<BorderPane fx:id="warehouseTab" prefHeight="600" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.damiatm94.shopapp.view.WarehouseTabController">
     <center>
         <TableView fx:id="productsTable" prefHeight="364.0" prefWidth="1020.0" BorderPane.alignment="CENTER">
             <columns>
