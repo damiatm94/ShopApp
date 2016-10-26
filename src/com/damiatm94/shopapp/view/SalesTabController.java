@@ -44,6 +44,36 @@ public class SalesTabController implements ProductsListener
     private static int selectedIndexForSales;
     private static Product selectedSalesProduct;
 
+    public static List<AnchorPane> getAnchorPanes()
+    {
+        return anchorPanes;
+    }
+
+    public static void setAnchorPanes(List<AnchorPane> anchorPanes)
+    {
+        SalesTabController.anchorPanes = anchorPanes;
+    }
+
+    public static List<Label> getLabels()
+    {
+        return labels;
+    }
+
+    public static void setLabels(List<Label> labels)
+    {
+        SalesTabController.labels = labels;
+    }
+
+    public static List<TextField> getTextFields()
+    {
+        return textFields;
+    }
+
+    public static void setTextFields(List<TextField> textFields)
+    {
+        SalesTabController.textFields = textFields;
+    }
+
     public static void setSelectedIndexForSales(int selectedIndexForSales)
     {
         SalesTabController.selectedIndexForSales = selectedIndexForSales;
@@ -296,6 +326,7 @@ public class SalesTabController implements ProductsListener
 
             // Set product into the controller.
             SellDialogController controller = loader.getController();
+            controller.initSalesTabMainController(this);
             controller.setDialogStage(dialogStage);
             controller.displayListOfSellingProducts(productList);
 

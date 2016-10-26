@@ -14,15 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.damiatm94.shopapp.MainApp.getProductData;
-import static com.damiatm94.shopapp.view.ProductsOverviewController.getAnchorPanes;
-import static com.damiatm94.shopapp.view.ProductsOverviewController.getLabels;
-import static com.damiatm94.shopapp.view.ProductsOverviewController.getTextFields;
 
 /**
  * Created by damian on 06.08.16.
  */
 public class SellDialogController
 {
+    private SalesTabController mainController;
+
     private Stage dialogStage;
     private boolean okClicked = false;
     private List<AnchorPane> sellAnchorPanes = new ArrayList<>();
@@ -148,18 +147,19 @@ public class SellDialogController
     {
         int labelIndex = 2;
 
-        for (int n = 0; n < getAnchorPanes().size(); n++)
+        for (int n = 0; n < mainController.getAnchorPanes().size(); n++)
         {
             int newProductAmount = getProductData().get(n).getAmount() - getProductData().get(n).getQuantity();
             getProductData().get(n).setAmount(newProductAmount);
 
             getProductData().get(n).setQuantity(0);
-            getTextFields().get(n).setText(String.valueOf(getProductData().get(n).getQuantity()));
+            mainController.getTextFields().get(n).setText(String.valueOf(getProductData().get(n).getQuantity()));
 
-            getLabels().get(labelIndex).setText(String.valueOf(getProductData().get(n).getAmount()));
+            mainController.getLabels().get(labelIndex).setText(String.valueOf(getProductData().get(n).getAmount()));
+            System.out.println("zmiana ilości");
             if (getProductData().get(n).getAmount() == 0)
             {
-                getLabels().get(labelIndex).setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
+                mainController.getLabels().get(labelIndex).setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
             }
 
             labelIndex += 3;
@@ -185,5 +185,10 @@ public class SellDialogController
         }
 
         sumLabel.setText(String.valueOf(sumPrices));
+    }
+
+    public void initSalesTabMainController(SalesTabController salesTabController)
+    {
+        mainController = salesTabController;
     }
 }

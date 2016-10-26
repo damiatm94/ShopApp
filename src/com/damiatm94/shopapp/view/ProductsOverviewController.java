@@ -28,25 +28,9 @@ public class ProductsOverviewController
     @FXML private OrdersTabController ordersTabController;
     @FXML private SalesTabController salesTabController;
 
-    private static List<AnchorPane> anchorPanes = new ArrayList<>();
-    private static List<Label> labels = new ArrayList<>();
-    private static List<TextField> textFields = new ArrayList<>();
 
     // Reference to the main application.
     private MainApp ourMainApp;
-
-    public static List<TextField> getTextFields()
-    {
-        return textFields;
-    }
-    public static List<Label> getLabels()
-    {
-        return labels;
-    }
-    public static List<AnchorPane> getAnchorPanes()
-    {
-        return anchorPanes;
-    }
 
     public WarehouseTabController getWarehouseTabController()
     {
@@ -94,5 +78,4 @@ public class ProductsOverviewController
     {
         this.ourMainApp = mainApp;
     }
-
 }
