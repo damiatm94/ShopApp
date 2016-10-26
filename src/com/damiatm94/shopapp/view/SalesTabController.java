@@ -62,7 +62,7 @@ public class SalesTabController implements ProductsListener
     private void initialize()
     {
         // Load some dummy products' data if they are existing
-        //loadDummiesToSalesPanel();
+        loadDummiesToSalesPanel();
     }
 
     /**
@@ -70,11 +70,10 @@ public class SalesTabController implements ProductsListener
      */
     public void addProductToSalesPanel(Product product)
     {
-        System.out.println(anchorPanes.size());
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.setMaxWidth(Double.MAX_VALUE);
         anchorPanes.add(anchorPane);
-        System.out.println(anchorPanes.size());
+        //System.out.println(anchorPanes.size());
 
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(10.0, 0.0, 0.0, 0.0));
@@ -238,7 +237,7 @@ public class SalesTabController implements ProductsListener
     @Override
     public void deleteProduct()
     {
-        //container.getChildren().remove(anchorPanes.get(selectedIndexForSales));
+        container.getChildren().remove(anchorPanes.get(selectedIndexForSales));
 
         labels.remove(3 * selectedIndexForSales + 2);
         labels.remove(3 * selectedIndexForSales + 1);

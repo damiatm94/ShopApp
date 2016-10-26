@@ -48,6 +48,36 @@ public class ProductsOverviewController
         return anchorPanes;
     }
 
+    public WarehouseTabController getWarehouseTabController()
+    {
+        return warehouseTabController;
+    }
+
+    public void setWarehouseTabController(WarehouseTabController warehouseTabController)
+    {
+        this.warehouseTabController = warehouseTabController;
+    }
+
+    public OrdersTabController getOrdersTabController()
+    {
+        return ordersTabController;
+    }
+
+    public void setOrdersTabController(OrdersTabController ordersTabController)
+    {
+        this.ordersTabController = ordersTabController;
+    }
+
+    public SalesTabController getSalesTabController()
+    {
+        return salesTabController;
+    }
+
+    public void setSalesTabController(SalesTabController salesTabController)
+    {
+        this.salesTabController = salesTabController;
+    }
+
     public ProductsOverviewController()
     {
     }
@@ -93,6 +123,16 @@ public class ProductsOverviewController
         Product newProduct = new Product();
         warehouseTabController.addNewProduct(newProduct);
         salesTabController.addNewProduct(newProduct);
+    }
+
+    public void editProduct()
+    {
+        warehouseTabController.editProduct();
+    }
+
+    public void deleteProduct()
+    {
+        warehouseTabController.deleteProduct();
     }
 
 }

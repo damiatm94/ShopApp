@@ -96,7 +96,7 @@ public class WarehouseTabController implements ProductsListener
             if (okClicked)
             {
                 setSelectedProduct(selectedProduct);
-                salesTab.editProduct();
+                mainController.getSalesTabController().editProduct();
             }
         }
     }
@@ -109,7 +109,7 @@ public class WarehouseTabController implements ProductsListener
         {
             productsTable.getItems().remove(selectedIndex);
             setSelectedIndexForSales(selectedIndex);
-            salesTab.deleteProduct();
+            mainController.getSalesTabController().deleteProduct();
         }
     }
 
@@ -117,6 +117,17 @@ public class WarehouseTabController implements ProductsListener
     {
         mainController.addNewProduct();
     }
+
+    @FXML public void handleButtonEdit()
+    {
+        mainController.editProduct();
+    }
+
+    @FXML public void handleButtonDelete()
+    {
+        mainController.deleteProduct();
+    }
+
 
     public boolean showProductNewOrEditDialog(Product product, boolean isNewProduct)
     {
