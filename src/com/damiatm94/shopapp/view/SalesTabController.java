@@ -31,9 +31,7 @@ public class SalesTabController implements ProductsListener
     private ProductsOverviewController mainController;
 
     @FXML private BorderPane salesTab;
-    //@FXML private VBox container;
-    private ScrollPane ourContainer = new ScrollPane();
-    private VBox createdVBox = new VBox();
+    @FXML private VBox container;
 
     private MainApp mainApp;
 
@@ -63,12 +61,6 @@ public class SalesTabController implements ProductsListener
     @FXML
     private void initialize()
     {
-        createdVBox.setPrefWidth(1000.0);
-        createdVBox.setFillWidth(true);
-        //ourContainer.setContent(createdVBox);
-
-
-
         // Load some dummy products' data if they are existing
         //loadDummiesToSalesPanel();
     }
@@ -194,11 +186,7 @@ public class SalesTabController implements ProductsListener
         anchorPane.setLeftAnchor(gridPane, 0.0);
         anchorPane.setRightAnchor(gridPane, 0.0);
 
-        createdVBox.getChildren().add(anchorPane);
-        ourContainer.setContent(createdVBox);
-        salesTab.setCenter(ourContainer);
-
-        //container.getChildren().add(anchorPane);
+        container.getChildren().add(anchorPane);
     }
 
     /**

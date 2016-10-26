@@ -42,13 +42,13 @@
                 </GridPane>
             </top>
             <center>
-                <!--<ScrollPane fitToWidth="true" minHeight="-Infinity" prefHeight="300.0" BorderPane.alignment="CENTER">-->
-                    <!--<content>-->
-                        <!--<VBox fx:id="container" fillWidth="true" minWidth="-Infinity" prefWidth="1000.0">-->
+                <ScrollPane fitToWidth="true" minHeight="-Infinity" prefHeight="300.0" BorderPane.alignment="CENTER">
+                    <content>
+                        <VBox fx:id="container" fillWidth="true" minWidth="-Infinity" prefWidth="1000.0">
 
-                        <!--</VBox>-->
-                    <!--</content>-->
-                <!--</ScrollPane>-->
+                        </VBox>
+                    </content>
+                </ScrollPane>
             </center>
             <bottom>
                 <ButtonBar prefHeight="100.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
