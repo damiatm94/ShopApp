@@ -112,10 +112,6 @@ public class ProductsOverviewController
     public void setMainApp(MainApp mainApp)
     {
         this.ourMainApp = mainApp;
-        //warehouseTabController.setMainApp(ourMainApp);
-
-        // Add observable list data to the table
-        //productsTable.setItems(getProductData());
     }
 
     public void addNewProduct()
@@ -123,16 +119,19 @@ public class ProductsOverviewController
         Product newProduct = new Product();
         warehouseTabController.addNewProduct(newProduct);
         salesTabController.addNewProduct(newProduct);
+        ProductToDB.persistProductsToDB();
     }
 
     public void editProduct()
     {
         warehouseTabController.editProduct();
+        ProductToDB.persistProductsToDB();
     }
 
     public void deleteProduct()
     {
         warehouseTabController.deleteProduct();
+        ProductToDB.persistProductsToDB();
     }
 
 }
