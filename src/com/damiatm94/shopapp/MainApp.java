@@ -1,7 +1,6 @@
 package com.damiatm94.shopapp;
 
 import java.io.IOException;
-import java.util.List;
 
 import com.damiatm94.shopapp.model.Product;
 import com.damiatm94.shopapp.view.*;
@@ -22,9 +21,6 @@ public class MainApp extends Application
     private Stage primaryStage;
     private BorderPane rootLayout;
 
-    /**
-     * The data as an observable list of Products.
-     */
     private static ObservableList<Product> productData = FXCollections.observableArrayList();
 
     public MainApp()
@@ -113,7 +109,6 @@ public class MainApp extends Application
             Scene scene = new Scene(historyScene);
             dialogStage.setScene(scene);
 
-            // Set the persons into the controller.
             SalesHistoryController controller = loader.getController();
             controller.setItemsToList();
 

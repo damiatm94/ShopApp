@@ -1,6 +1,7 @@
 package com.damiatm94.shopapp.view;
 
 import com.damiatm94.shopapp.MainApp;
+import com.damiatm94.shopapp.domain.ProductToDB;
 import com.damiatm94.shopapp.model.Product;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -24,11 +25,7 @@ import static com.damiatm94.shopapp.view.SalesTabController.setSelectedProduct;
  */
 public class WarehouseTabController implements ProductsListener
 {
-    SalesTabController salesTab = new SalesTabController();
-
-    // Reference to the main application.
     private MainApp mainApp;
-
     private ProductsOverviewController mainController;
 
     @FXML private TableView<Product> productsTable;
@@ -63,7 +60,6 @@ public class WarehouseTabController implements ProductsListener
         minAmountColumn.setCellValueFactory(cellData -> cellData.getValue().minAmountProperty().asObject());
 
         productsTable.setItems(getProductData());
-
 
         // Enable deleting only if the product in the table is selected
         deleteButton.disableProperty().bind(Bindings.isEmpty(productsTable.getSelectionModel().getSelectedItems()));
@@ -115,17 +111,22 @@ public class WarehouseTabController implements ProductsListener
 
     @FXML public void handleButtonNew()
     {
-        mainController.addNewProduct();
+        Product newProduct = new Product();
+        addNewProduct(newProduct);
+        mainController.getSalesTabController().addNewProduct(newProduct);
+        ProductToDB.persistProductsToDB();
     }
 
     @FXML public void handleButtonEdit()
     {
-        mainController.editProduct();
+        editProduct();
+        ProductToDB.persistProductsToDB();
     }
 
     @FXML public void handleButtonDelete()
     {
-        mainController.deleteProduct();
+        deleteProduct();
+        ProductToDB.persistProductsToDB();
     }
 
 

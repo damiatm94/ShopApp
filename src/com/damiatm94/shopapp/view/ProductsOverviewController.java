@@ -82,10 +82,6 @@ public class ProductsOverviewController
     {
     }
 
-    /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
-     */
     @FXML
     private void initialize()
     {
@@ -94,44 +90,9 @@ public class ProductsOverviewController
         salesTabController.initMainController(this);
     }
 
-    /**
-     * This is a sample method checking if persisting objects to MySQL database work.
-     * It will be assigned to another graphic component in the future.
-     */
-    @FXML
-    private void handlePersistToDB()
-    {
-        ProductToDB.persistProductsToDB();
-    }
-
-    /**
-     * Is called by the main application to give a reference back to itself.
-     *
-     * @param mainApp
-     */
     public void setMainApp(MainApp mainApp)
     {
         this.ourMainApp = mainApp;
-    }
-
-    public void addNewProduct()
-    {
-        Product newProduct = new Product();
-        warehouseTabController.addNewProduct(newProduct);
-        salesTabController.addNewProduct(newProduct);
-        ProductToDB.persistProductsToDB();
-    }
-
-    public void editProduct()
-    {
-        warehouseTabController.editProduct();
-        ProductToDB.persistProductsToDB();
-    }
-
-    public void deleteProduct()
-    {
-        warehouseTabController.deleteProduct();
-        ProductToDB.persistProductsToDB();
     }
 
 }

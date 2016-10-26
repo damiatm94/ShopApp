@@ -31,10 +31,6 @@ public class ProductNewOrEditDialogController
     private boolean isNewProduct;
     private boolean okClicked = false;
 
-    /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
-     */
     @FXML
     private void initialize()
     {
@@ -84,9 +80,6 @@ public class ProductNewOrEditDialogController
         return okClicked;
     }
 
-    /**
-     * Called when the user clicks ok.
-     */
     @FXML
     private void handleOk()
     {
@@ -102,20 +95,12 @@ public class ProductNewOrEditDialogController
         }
     }
 
-    /**
-     * Called when the user clicks cancel.
-     */
     @FXML
     private void handleCancel()
     {
         dialogStage.close();
     }
 
-    /**
-     * Validates the user input in the text fields.
-     *
-     * @return true if the input is valid
-     */
     private boolean isInputValid()
     {
         String errorMessage = "";
@@ -169,7 +154,6 @@ public class ProductNewOrEditDialogController
                 errorMessage += "No valid minimal amount value (must be an integer)!\n";
             }
         }
-
 
         if (errorMessage.length() == 0)
         {
