@@ -34,7 +34,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Button mnemonicParsing="false" text="New order" GridPane.rowIndex="1" />
+                        <Button mnemonicParsing="false" onAction="#handleButtonNewOrder" text="New order" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                   <Separator prefWidth="200.0" />

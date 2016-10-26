@@ -156,7 +156,6 @@ public class SellDialogController
             mainController.getTextFields().get(n).setText(String.valueOf(getProductData().get(n).getQuantity()));
 
             mainController.getLabels().get(labelIndex).setText(String.valueOf(getProductData().get(n).getAmount()));
-            System.out.println("zmiana ilości");
             if (getProductData().get(n).getAmount() == 0)
             {
                 mainController.getLabels().get(labelIndex).setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
