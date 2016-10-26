@@ -28,6 +28,8 @@ import static com.damiatm94.shopapp.MainApp.getProductData;
  */
 public class SalesTabController implements ProductsListener
 {
+    private ProductsOverviewController mainController;
+
     @FXML private BorderPane salesTab;
     //@FXML private VBox container;
     private ScrollPane ourContainer = new ScrollPane();
@@ -246,7 +248,7 @@ public class SalesTabController implements ProductsListener
     }
 
     @Override
-    public void handleDeleteProduct()
+    public void deleteProduct()
     {
         //container.getChildren().remove(anchorPanes.get(selectedIndexForSales));
 
@@ -272,7 +274,7 @@ public class SalesTabController implements ProductsListener
     }
 
     @Override
-    public void handleNewProduct(Product product)
+    public void addNewProduct(Product product)
     {
         addProductToSalesPanel(product);
         setNewProductDetails(product);
@@ -280,7 +282,7 @@ public class SalesTabController implements ProductsListener
     }
 
     @Override
-    public void handleEditProduct()
+    public void editProduct()
     {
         setEditProductDetails(selectedSalesProduct);
     }
@@ -321,6 +323,11 @@ public class SalesTabController implements ProductsListener
             e.printStackTrace();
             return false;
         }
+    }
+
+    public void initMainController(ProductsOverviewController productsOverviewController)
+    {
+        mainController = productsOverviewController;
     }
 
 }

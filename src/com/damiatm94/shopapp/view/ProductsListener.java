@@ -7,7 +7,7 @@ import com.damiatm94.shopapp.model.Product;
  */
 public interface ProductsListener
 {
-    void handleDeleteProduct();
-    void handleNewProduct(Product product);
-    void handleEditProduct();
+    void addNewProduct(Product product);
+    void deleteProduct();
+    void editProduct();
 }

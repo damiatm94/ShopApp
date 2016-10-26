@@ -59,7 +59,9 @@ public class ProductsOverviewController
     @FXML
     private void initialize()
     {
-        warehouseTabController.injectMainController(this);
+        warehouseTabController.initMainController(this);
+        ordersTabController.initMainController(this);
+        salesTabController.initMainController(this);
     }
 
     /**
@@ -84,6 +86,13 @@ public class ProductsOverviewController
 
         // Add observable list data to the table
         //productsTable.setItems(getProductData());
+    }
+
+    public void addNewProduct()
+    {
+        Product newProduct = new Product();
+        warehouseTabController.addNewProduct(newProduct);
+        salesTabController.addNewProduct(newProduct);
     }
 
 }

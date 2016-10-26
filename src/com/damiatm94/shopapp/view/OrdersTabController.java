@@ -10,6 +10,8 @@ import javax.persistence.criteria.Order;
  */
 public class OrdersTabController
 {
+    private ProductsOverviewController mainController;
+
     public OrdersTabController()
     {
 
@@ -19,6 +21,11 @@ public class OrdersTabController
     private void initialize()
     {
 
+    }
+
+    public void initMainController(ProductsOverviewController productsOverviewController)
+    {
+        mainController = productsOverviewController;
     }
 
 }

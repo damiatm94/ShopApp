@@ -28,7 +28,7 @@
     <bottom>
         <ButtonBar prefHeight="100.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
             <buttons>
-                <Button fx:id="newButton" mnemonicParsing="false" onAction="#handleOneButton" text="New..." />
+                <Button fx:id="newButton" mnemonicParsing="false" onAction="#handleButtonNew" text="New..." />
                 <Button fx:id="editButton" mnemonicParsing="false" text="Edit..." />
                 <Button fx:id="deleteButton" mnemonicParsing="false" text="Delete" />
             </buttons>

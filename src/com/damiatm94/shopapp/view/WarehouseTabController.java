@@ -29,7 +29,7 @@ public class WarehouseTabController implements ProductsListener
     // Reference to the main application.
     private MainApp mainApp;
 
-    private ProductsOverviewController productsOverviewController;
+    private ProductsOverviewController mainController;
 
     @FXML private TableView<Product> productsTable;
     @FXML private TableColumn<Product, String> productNameColumn;
@@ -72,7 +72,7 @@ public class WarehouseTabController implements ProductsListener
         editButton.disableProperty().bind(Bindings.isEmpty(productsTable.getSelectionModel().getSelectedItems()));
     }
 
-    public void handleNewProduct(Product newProduct)
+    public void addNewProduct(Product newProduct)
     {
         boolean isNewProduct = true;
         boolean okClicked = showProductNewOrEditDialog(newProduct, isNewProduct);
@@ -80,11 +80,10 @@ public class WarehouseTabController implements ProductsListener
         if (okClicked)
         {
             getProductData().add(newProduct);
-            salesTab.handleNewProduct(newProduct);
         }
     }
 
-    public void handleEditProduct()
+    public void editProduct()
     {
         Product selectedProduct = productsTable.getSelectionModel().getSelectedItem();
         int selectedIndex = productsTable.getSelectionModel().getSelectedIndex();
@@ -97,12 +96,12 @@ public class WarehouseTabController implements ProductsListener
             if (okClicked)
             {
                 setSelectedProduct(selectedProduct);
-                salesTab.handleEditProduct();
+                salesTab.editProduct();
             }
         }
     }
 
-    public void handleDeleteProduct()
+    public void deleteProduct()
     {
         int selectedIndex = productsTable.getSelectionModel().getSelectedIndex();
 
@@ -110,14 +109,13 @@ public class WarehouseTabController implements ProductsListener
         {
             productsTable.getItems().remove(selectedIndex);
             setSelectedIndexForSales(selectedIndex);
-            salesTab.handleDeleteProduct();
+            salesTab.deleteProduct();
         }
     }
 
-    @FXML public void handleOneButton()
+    @FXML public void handleButtonNew()
     {
-        Product newProduct = new Product();
-        handleNewProduct(newProduct);
+        mainController.addNewProduct();
     }
 
     public boolean showProductNewOrEditDialog(Product product, boolean isNewProduct)
@@ -162,8 +160,8 @@ public class WarehouseTabController implements ProductsListener
         }
     }
 
-    public void injectMainController(ProductsOverviewController productsOverviewController)
+    public void initMainController(ProductsOverviewController productsOverviewController)
     {
-        this.productsOverviewController = productsOverviewController;
+        mainController = productsOverviewController;
     }
 }
