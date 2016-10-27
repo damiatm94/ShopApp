@@ -28,6 +28,7 @@ public class OrderDialogController
 
     ObservableList<Product> ordersList = FXCollections.observableArrayList();
 
+    private OrdersTabController ordersMainController;
     private Stage dialogStage;
     private Product product;
     private boolean okClicked = false;
@@ -88,6 +89,7 @@ public class OrderDialogController
     @FXML
     private void handleOrder()
     {
+        ordersMainController.enrollMadeOrder();
         dialogStage.close();
     }
 
@@ -167,5 +169,10 @@ public class OrderDialogController
 
             return false;
         }
+    }
+
+    public void injectMainController(OrdersTabController ordersTabController)
+    {
+        ordersMainController = ordersTabController;
     }
 }

@@ -30,7 +30,6 @@ public class SalesTabController implements ProductsListener
 {
     private ProductsOverviewController mainController;
 
-    @FXML private BorderPane salesTab;
     @FXML private VBox container;
 
     private MainApp mainApp;
@@ -49,29 +48,14 @@ public class SalesTabController implements ProductsListener
         return anchorPanes;
     }
 
-    public static void setAnchorPanes(List<AnchorPane> anchorPanes)
-    {
-        SalesTabController.anchorPanes = anchorPanes;
-    }
-
     public static List<Label> getLabels()
     {
         return labels;
     }
 
-    public static void setLabels(List<Label> labels)
-    {
-        SalesTabController.labels = labels;
-    }
-
     public static List<TextField> getTextFields()
     {
         return textFields;
-    }
-
-    public static void setTextFields(List<TextField> textFields)
-    {
-        SalesTabController.textFields = textFields;
     }
 
     public static void setSelectedIndexForSales(int selectedIndexForSales)
@@ -177,15 +161,12 @@ public class SalesTabController implements ProductsListener
         buttonMinus.setMaxWidth(30);
         buttonMinus.setOnAction(event ->
         {
-            //quantityTextField.setText("-");
-
             int k = product.getQuantity() - 1;
             if (k >= 0)
             {
                 product.setQuantity(k);
                 quantityTextField.setText(String.valueOf(product.getQuantity()));
             }
-
         });
         gridPane.setConstraints(buttonMinus, 5, 0, 1, 1, HPos.LEFT, VPos.CENTER);
 
@@ -194,22 +175,18 @@ public class SalesTabController implements ProductsListener
         buttonPlus.setMaxWidth(30);
         buttonPlus.setOnAction(event ->
         {
-            //quantityTextField.setText("+");
-
             if (product.getQuantity() + 1 <= product.getAmount())
             {
                 int k = product.getQuantity() + 1;
                 product.setQuantity(k);
                 quantityTextField.setText(String.valueOf(product.getQuantity()));
             }
-
         });
         gridPane.setConstraints(buttonPlus, 5, 0, 1, 1, HPos.RIGHT, VPos.CENTER);
 
 
         //----------------------------------Adding children-------------------------------------
         gridPane.getChildren().addAll(buttonMinus, quantityTextField, buttonPlus);
-
         anchorPane.getChildren().add(gridPane);
         anchorPane.setTopAnchor(gridPane, 0.0);
         anchorPane.setLeftAnchor(gridPane, 0.0);
@@ -347,5 +324,4 @@ public class SalesTabController implements ProductsListener
     {
         mainController = productsOverviewController;
     }
-
 }

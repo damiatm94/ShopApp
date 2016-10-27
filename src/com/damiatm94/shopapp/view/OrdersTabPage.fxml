@@ -46,7 +46,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <ScrollPane fitToWidth="true" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                  <ScrollPane fx:id="scrollPane" fitToWidth="true" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" />
                      </VBox.margin>
@@ -80,7 +80,7 @@
             <Separator prefWidth="200.0" />
             <ButtonBar minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0">
               <buttons>
-                <Button mnemonicParsing="false" text="Persist to DB" />
+                <Button mnemonicParsing="false" onAction="#handleButtonDelete" text="Delete" />
               </buttons>
                <VBox.margin>
                   <Insets right="30.0" />
