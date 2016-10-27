@@ -184,7 +184,6 @@ public class SalesTabController implements ProductsListener
         });
         gridPane.setConstraints(buttonPlus, 5, 0, 1, 1, HPos.RIGHT, VPos.CENTER);
 
-
         //----------------------------------Adding children-------------------------------------
         gridPane.getChildren().addAll(buttonMinus, quantityTextField, buttonPlus);
         anchorPane.getChildren().add(gridPane);
