@@ -32,12 +32,10 @@ public class OrdersTabController
     @FXML
     public void handleButtonNewOrder()
     {
-        Product product = new Product();
-        boolean isNewProduct = true;
-        showOrderDialog(product, isNewProduct);
+        showOrderDialog();
     }
 
-    public boolean showOrderDialog(Product product, boolean isNewProduct)
+    public boolean showOrderDialog()
     {
         try
         {
@@ -55,18 +53,12 @@ public class OrdersTabController
             dialogStage.setScene(scene);
             //dialogStage.setResizable(false);
             //primaryStage.setResizable(true);
-            if (isNewProduct)
-            {
-                dialogStage.setTitle("Make new order");
-            } else
-            {
-                dialogStage.setTitle("Edit Product");
-            }
+
+            dialogStage.setTitle("Make new order");
 
             // Set the person into the controller.
             OrderDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setProduct(product, isNewProduct);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();

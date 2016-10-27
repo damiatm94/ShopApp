@@ -16,15 +16,10 @@ import com.damiatm94.shopapp.model.Product;
  */
 public class ProductNewOrEditDialogController
 {
-
-    @FXML
-    private TextField productNameField;
-    @FXML
-    private TextField priceField;
-    @FXML
-    private TextField amountField;
-    @FXML
-    private TextField minAmountField;
+    @FXML private TextField productNameField;
+    @FXML private TextField priceField;
+    @FXML private TextField amountField;
+    @FXML private TextField minAmountField;
 
     private Stage dialogStage;
     private Product product;

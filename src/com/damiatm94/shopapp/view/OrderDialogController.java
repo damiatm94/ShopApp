@@ -1,6 +1,8 @@
 package com.damiatm94.shopapp.view;
 
 import com.damiatm94.shopapp.model.Product;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
@@ -19,50 +21,35 @@ public class OrderDialogController
     @FXML private TableColumn<Product, Integer> amountColumn;
     @FXML private TableColumn<Product, Integer> minAmountColumn;
 
+    @FXML private TextField orderNameField;
+    @FXML private TextField priceField;
+    @FXML private TextField amountField;
+    @FXML private TextField minAmountField;
 
-    @FXML
-    private TextField orderNameField;
-    @FXML
-    private TextField priceField;
-    @FXML
-    private TextField amountField;
-    @FXML
-    private TextField minAmountField;
+    ObservableList<Product> ordersList = FXCollections.observableArrayList();
 
     private Stage dialogStage;
     private Product product;
-    private boolean isNewProduct;
     private boolean okClicked = false;
 
     @FXML
     private void initialize()
     {
+        orderNameField.setPromptText("Product Name");
+        priceField.setPromptText("Price");
+        amountField.setPromptText("Amount");
+        minAmountField.setPromptText("Minimal amount");
+
+        orderNameColumn.setCellValueFactory(cellData -> cellData.getValue().productNameProperty());
+        priceColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
+        amountColumn.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
+        minAmountColumn.setCellValueFactory(cellData -> cellData.getValue().minAmountProperty().asObject());
+        ordersTable.setItems(ordersList);
     }
 
     public void setDialogStage(Stage dialogStage)
     {
         this.dialogStage = dialogStage;
-    }
-
-    public void setProduct(Product product, boolean isNewProduct)
-    {
-        this.product = product;
-        this.isNewProduct = isNewProduct;
-
-        if (!isNewProduct)
-        {
-            orderNameField.setText(product.getProductName());
-            priceField.setText(Double.toString(product.getPrice()));
-            amountField.setText(Integer.toString(product.getAmount()));
-            minAmountField.setText(Integer.toString(product.getMinAmount()));
-        } else
-        {
-            orderNameField.setText("");
-            priceField.setText("");
-            amountField.setText("");
-            minAmountField.setText("");
-        }
-
     }
 
     public boolean isOkClicked()
@@ -71,18 +58,37 @@ public class OrderDialogController
     }
 
     @FXML
-    private void handleOrder()
+    private void handleButtonAdd()
     {
         if (isInputValid())
         {
+            product = new Product();
             product.setProductName(orderNameField.getText());
             product.setPrice(Double.parseDouble(priceField.getText()));
             product.setAmount(Integer.parseInt(amountField.getText()));
             product.setMinAmount(Integer.parseInt(minAmountField.getText()));
 
+            ordersList.add(product);
+
+            orderNameField.clear();
+            priceField.clear();
+            amountField.clear();
+            minAmountField.clear();
+
             okClicked = true;
-            dialogStage.close();
         }
+    }
+
+    @FXML
+    private void handleButtonDelete()
+    {
+
+    }
+
+    @FXML
+    private void handleOrder()
+    {
+        dialogStage.close();
     }
 
     @FXML

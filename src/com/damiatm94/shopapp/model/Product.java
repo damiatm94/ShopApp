@@ -115,4 +115,16 @@ public class Product
     {
         this.quantity.set(quantity);
     }
+
+    @Override
+    public String toString()
+    {
+        return "Product{" +
+                "productName=" + productName +
+                ", price=" + price +
+                ", amount=" + amount +
+                ", minAmount=" + minAmount +
+                ", quantity=" + quantity +
+                '}';
+    }
 }
