@@ -76,6 +76,8 @@ public class WarehouseTabController implements ProductsListener
         if (okClicked)
         {
             getProductData().add(newProduct);
+            mainController.getSalesTabController().addNewProduct(newProduct);
+            ProductToDB.persistProductsToDB();
         }
     }
 
@@ -113,8 +115,6 @@ public class WarehouseTabController implements ProductsListener
     {
         Product newProduct = new Product();
         addNewProduct(newProduct);
-        mainController.getSalesTabController().addNewProduct(newProduct);
-        ProductToDB.persistProductsToDB();
     }
 
     @FXML public void handleButtonEdit()

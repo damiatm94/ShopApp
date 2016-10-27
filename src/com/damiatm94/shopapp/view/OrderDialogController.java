@@ -3,6 +3,8 @@ package com.damiatm94.shopapp.view;
 import com.damiatm94.shopapp.model.Product;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -11,8 +13,15 @@ import javafx.stage.Stage;
  */
 public class OrderDialogController
 {
+    @FXML private TableView<Product> ordersTable;
+    @FXML private TableColumn<Product, String> orderNameColumn;
+    @FXML private TableColumn<Product, Double> priceColumn;
+    @FXML private TableColumn<Product, Integer> amountColumn;
+    @FXML private TableColumn<Product, Integer> minAmountColumn;
+
+
     @FXML
-    private TextField productNameField;
+    private TextField orderNameField;
     @FXML
     private TextField priceField;
     @FXML
@@ -42,13 +51,13 @@ public class OrderDialogController
 
         if (!isNewProduct)
         {
-            productNameField.setText(product.getProductName());
+            orderNameField.setText(product.getProductName());
             priceField.setText(Double.toString(product.getPrice()));
             amountField.setText(Integer.toString(product.getAmount()));
             minAmountField.setText(Integer.toString(product.getMinAmount()));
         } else
         {
-            productNameField.setText("");
+            orderNameField.setText("");
             priceField.setText("");
             amountField.setText("");
             minAmountField.setText("");
@@ -66,7 +75,7 @@ public class OrderDialogController
     {
         if (isInputValid())
         {
-            product.setProductName(productNameField.getText());
+            product.setProductName(orderNameField.getText());
             product.setPrice(Double.parseDouble(priceField.getText()));
             product.setAmount(Integer.parseInt(amountField.getText()));
             product.setMinAmount(Integer.parseInt(minAmountField.getText()));
@@ -86,7 +95,7 @@ public class OrderDialogController
     {
         String errorMessage = "";
 
-        if (productNameField.getText() == null || productNameField.getText().length() == 0)
+        if (orderNameField.getText() == null || orderNameField.getText().length() == 0)
         {
             errorMessage += "No valid product name!\n";
         }
