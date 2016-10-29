@@ -113,7 +113,7 @@ public class ProductNewOrEditDialogController
             // try to parse price into a double.
             try
             {
-                Double.parseDouble(minAmountField.getText());
+                Double.parseDouble(priceField.getText());
             } catch (NumberFormatException e)
             {
                 errorMessage += "No valid price value (must be an double)!\n";
@@ -128,7 +128,7 @@ public class ProductNewOrEditDialogController
             // try to parse amount into an int.
             try
             {
-                Integer.parseInt(minAmountField.getText());
+                Integer.parseInt(amountField.getText());
             } catch (NumberFormatException e)
             {
                 errorMessage += "No valid amount value (must be an integer)!\n";

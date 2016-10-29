@@ -9,17 +9,16 @@ import javafx.collections.ObservableList;
 public class Order
 {
     private String name;
-    private ObservableList<Product> ordersList = FXCollections.observableArrayList();
+    private ObservableList<Product> listOfProducts = FXCollections.observableArrayList();
 
     public Order()
     {
-
     }
 
-    public Order(String name, ObservableList<Product> ordersList)
+    public Order(String name, ObservableList<Product> listOfProducts)
     {
         this.name = name;
-        this.ordersList = ordersList;
+        this.listOfProducts = listOfProducts;
     }
 
     public String getName()
@@ -32,13 +31,13 @@ public class Order
         this.name = name;
     }
 
-    public ObservableList<Product> getOrdersList()
+    public ObservableList<Product> getListOfProducts()
     {
-        return ordersList;
+        return listOfProducts;
     }
 
-    public void setOrdersList(ObservableList<Product> ordersList)
+    public void setListOfProducts(ObservableList<Product> ordersList)
     {
-        this.ordersList = ordersList;
+        this.listOfProducts = ordersList;
     }
 }

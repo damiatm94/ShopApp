@@ -31,6 +31,7 @@ public class OrdersTabController
     private MainApp mainApp;
     private ProductsOverviewController mainController;
     private boolean isNewOrder = true;
+    private String nameOfOrder;
 
     private ColumnConstraints[] columnsList = new ColumnConstraints[4];
     private static List<Label> ordersLabelsList = new ArrayList<>();
@@ -40,6 +41,11 @@ public class OrdersTabController
     private List<Button> undoButtons = new ArrayList<>();
     Image confirmImage, showImage, undoImage;
     private GridPane gridPane;
+
+    public void setNameOfOrder(String nameOfOrder)
+    {
+        this.nameOfOrder = nameOfOrder;
+    }
 
     @FXML
     private VBox vBox;
@@ -85,15 +91,15 @@ public class OrdersTabController
         rowAnchorList.add(rowAnchorPane);
 
         //---------------------------Adding labels to gridPane----------------------------------
-        Label ordersDateLabel = new Label();
+        Label orderName = new Label();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy/ HH:mm:ss");
         Date date = new Date();
-        ordersDateLabel.setText("O/" + dateFormat.format(date));
-        ordersLabelsList.add(ordersDateLabel);
+        orderName.setText(nameOfOrder);
+        ordersLabelsList.add(orderName);
 
         gridPane = createGridPane();
-        gridPane.setRowIndex(ordersDateLabel, 0);
-        gridPane.setColumnIndex(ordersDateLabel, 0);
+        gridPane.setRowIndex(orderName, 0);
+        gridPane.setColumnIndex(orderName, 0);
 
         //----------------------------------Adding buttons--------------------------------------
         Button buttonConfirmDelivery = new Button("Show");
@@ -122,7 +128,7 @@ public class OrdersTabController
         gridPane.setConstraints(buttonUndoOrder, 3, 0, 1, 1, HPos.LEFT, VPos.CENTER);
 
         //----------------------------------Adding children-------------------------------------
-        gridPane.getChildren().addAll(ordersDateLabel, buttonShowPreview, buttonConfirmDelivery, buttonUndoOrder);
+        gridPane.getChildren().addAll(orderName, buttonShowPreview, buttonConfirmDelivery, buttonUndoOrder);
 
         rowAnchorPane.getChildren().add(gridPane);
         rowAnchorPane.setTopAnchor(gridPane, 0.0);

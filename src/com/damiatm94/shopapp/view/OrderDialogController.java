@@ -1,5 +1,6 @@
 package com.damiatm94.shopapp.view;
 
+import com.damiatm94.shopapp.model.Order;
 import com.damiatm94.shopapp.model.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,24 +11,36 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
 /**
  * Created by damian on 26.10.16.
  */
 public class OrderDialogController
 {
-    @FXML private TableView<Product> ordersTable;
-    @FXML private TableColumn<Product, String> orderNameColumn;
-    @FXML private TableColumn<Product, Double> priceColumn;
-    @FXML private TableColumn<Product, Integer> amountColumn;
-    @FXML private TableColumn<Product, Integer> minAmountColumn;
+    @FXML
+    private TableView<Product> ordersTable;
+    @FXML
+    private TableColumn<Product, String> orderNameColumn;
+    @FXML
+    private TableColumn<Product, Double> priceColumn;
+    @FXML
+    private TableColumn<Product, Integer> amountColumn;
 
-    @FXML private TextField orderNameField;
-    @FXML private TextField priceField;
-    @FXML private TextField amountField;
-    @FXML private TextField minAmountField;
+    @FXML
+    private TextField orderNameField;
+    @FXML
+    private TextField priceField;
+    @FXML
+    private TextField amountField;
 
-    ObservableList<Product> ordersList = FXCollections.observableArrayList();
+    ObservableList<Product> listOfProducts = FXCollections.observableArrayList();
+    ArrayList<Order> ordersList = new ArrayList<>();
 
+    private Order order;
     private OrdersTabController ordersMainController;
     private Stage dialogStage;
     private Product product;
@@ -39,13 +52,11 @@ public class OrderDialogController
         orderNameField.setPromptText("Product Name");
         priceField.setPromptText("Price");
         amountField.setPromptText("Amount");
-        minAmountField.setPromptText("Minimal amount");
 
         orderNameColumn.setCellValueFactory(cellData -> cellData.getValue().productNameProperty());
         priceColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
         amountColumn.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
-        minAmountColumn.setCellValueFactory(cellData -> cellData.getValue().minAmountProperty().asObject());
-        ordersTable.setItems(ordersList);
+        ordersTable.setItems(listOfProducts);
     }
 
     public void setDialogStage(Stage dialogStage)
@@ -67,14 +78,21 @@ public class OrderDialogController
             product.setProductName(orderNameField.getText());
             product.setPrice(Double.parseDouble(priceField.getText()));
             product.setAmount(Integer.parseInt(amountField.getText()));
-            product.setMinAmount(Integer.parseInt(minAmountField.getText()));
+            product.setMinAmount(0);
+            listOfProducts.add(product);
 
-            ordersList.add(product);
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy/ HH:mm:ss");
+            Date date = new Date();
+            String nameOfOrder = "O/" + dateFormat.format(date);
+            System.out.println(nameOfOrder);
+
+            Order order = new Order(nameOfOrder, listOfProducts);
+            ordersMainController.setNameOfOrder(order.getName());
+            ordersList.add(order);
 
             orderNameField.clear();
             priceField.clear();
             amountField.clear();
-            minAmountField.clear();
 
             okClicked = true;
         }
@@ -89,7 +107,11 @@ public class OrderDialogController
     @FXML
     private void handleOrder()
     {
-        ordersMainController.enrollMadeOrder();
+        System.out.println(listOfProducts.size());
+        if (listOfProducts.size() != 0)
+        {
+            ordersMainController.enrollMadeOrder();
+        }
         dialogStage.close();
     }
 
@@ -116,7 +138,7 @@ public class OrderDialogController
             // try to parse price into a double.
             try
             {
-                Double.parseDouble(minAmountField.getText());
+                Double.parseDouble(priceField.getText());
             } catch (NumberFormatException e)
             {
                 errorMessage += "No valid price value (must be an double)!\n";
@@ -131,27 +153,13 @@ public class OrderDialogController
             // try to parse amount into an int.
             try
             {
-                Integer.parseInt(minAmountField.getText());
+                Integer.parseInt(amountField.getText());
             } catch (NumberFormatException e)
             {
                 errorMessage += "No valid amount value (must be an integer)!\n";
             }
         }
 
-        if (minAmountField.getText() == null || minAmountField.getText().length() == 0)
-        {
-            errorMessage += "No valid minimal amount value!\n";
-        } else
-        {
-            // try to parse minimal amount into an int.
-            try
-            {
-                Integer.parseInt(minAmountField.getText());
-            } catch (NumberFormatException e)
-            {
-                errorMessage += "No valid minimal amount value (must be an integer)!\n";
-            }
-        }
 
         if (errorMessage.length() == 0)
         {
