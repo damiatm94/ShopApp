@@ -29,7 +29,9 @@
     <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
     <orderEntry type="library" name="Hibernate 5.2.2-5.2.2" level="project" />
     <orderEntry type="library" name="mysql:mysql-connector-java:5.1.39" level="project" />
-    <orderEntry type="library" name="Hibernate 5.2.2-5.2.2" level="project" />
+    <orderEntry type="library" exported="" name="Hibernate 5.2.2-5.2.2" level="project" />
     <orderEntry type="library" name="mysql:mysql-connector-java:5.1.39" level="project" />
+    <orderEntry type="library" name="Hibernate 5.2.3-5.2.3" level="project" />
+    <orderEntry type="library" name="mysql:mysql-connector-java:5.1.40" level="project" />
   </component>
 </module>

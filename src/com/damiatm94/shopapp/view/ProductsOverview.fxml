@@ -1,259 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+
 
 <AnchorPane prefHeight="500.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.damiatm94.shopapp.view.ProductsOverviewController">
     <children>
-        <TabPane prefHeight="500.0" prefWidth="1024.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <TabPane prefHeight="700.0" prefWidth="1024.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <tabs>
                 <Tab text="Warehouse">
                     <content>
-                        <BorderPane prefHeight="200.0" prefWidth="200.0">
-                            <center>
-                                <TableView fx:id="productsTable" prefHeight="364.0" prefWidth="1020.0" BorderPane.alignment="CENTER">
-                                    <columns>
-                                        <TableColumn fx:id="productNameColumn" minWidth="20.0" prefWidth="255.0" sortable="false" text="Product name" />
-                                        <TableColumn fx:id="priceColumn" minWidth="20.0" prefWidth="255.0" sortable="false" text="Price" />
-                                        <TableColumn fx:id="amountColumn" minWidth="20.0" prefWidth="255.0" sortable="false" text="Amount" />
-                                        <TableColumn fx:id="minAmountColumn" minWidth="20.0" prefWidth="255.0" sortable="false" text="Minimal amount" />
-                                    </columns>
-                                    <columnResizePolicy>
-                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                    </columnResizePolicy>
-                                    <BorderPane.margin>
-                                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                                    </BorderPane.margin>
-                                </TableView>
-                            </center>
-                            <bottom>
-                                <ButtonBar prefHeight="100.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
-                                    <buttons>
-                                        <Button mnemonicParsing="false" onAction="#handleNewProduct" text="New..." />
-                                        <Button fx:id="editButton" mnemonicParsing="false" onAction="#handleEditProduct" text="Edit..." />
-                                        <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDeleteProduct" text="Delete" />
-                                    </buttons>
-                                    <padding>
-                                        <Insets right="30.0" />
-                                    </padding>
-                                </ButtonBar>
-                            </bottom>
-                        </BorderPane>
+                        <fx:include fx:id="warehouseTab" source="WarehouseTabPage.fxml"/>
+
                     </content>
                 </Tab>
                 <Tab text="Orders">
                     <content>
-                        <BorderPane prefHeight="200.0" prefWidth="200.0">
-                     <bottom>
-                        <VBox prefWidth="100.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <Separator prefWidth="200.0" />
-                              <ButtonBar prefHeight="100.0" prefWidth="1024.0">
-                                 <buttons>
-                                    <Button mnemonicParsing="false" onAction="#handlePersistToDB" text="Persist to DB" />
-                                    <Button fx:id="editButton1" mnemonicParsing="false" onAction="#handleEditProduct" text="Edit..." />
-                                    <Button fx:id="deleteButton1" mnemonicParsing="false" onAction="#handleDeleteProduct" text="Delete" />
-                                 </buttons>
-                                 <padding>
-                                    <Insets right="30.0" />
-                                 </padding>
-                              </ButtonBar>
-                           </children>
-                        </VBox>
-                     </bottom>
-                     <center>
-                        <HBox maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="512.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                                       <children>
-                                          <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <columnConstraints>
-                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                             </columnConstraints>
-                                             <rowConstraints>
-                                                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="60.0" vgrow="ALWAYS" />
-                                                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="60.0" vgrow="ALWAYS" />
-                                             </rowConstraints>
-                                             <children>
-                                                <Button mnemonicParsing="false" text="New order" GridPane.rowIndex="1" />
-                                                <Label text="Make a new order">
-                                                   <font>
-                                                      <Font size="20.0" />
-                                                   </font>
-                                                </Label>
-                                             </children>
-                                          </GridPane>
-                                       </children>
-                                    </AnchorPane>
-                                    <Separator prefWidth="200.0" />
-                                    <Label text="Made orders">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets top="30.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                 </children>
-                              </VBox>
-                              <Separator minWidth="-Infinity" orientation="VERTICAL" prefHeight="200.0" prefWidth="1.0" />
-                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="511.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label text="Orders history">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets bottom="30.0" top="30.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <ScrollPane prefHeight="247.0" prefWidth="511.0" VBox.vgrow="ALWAYS">
-                                       <VBox.margin>
-                                          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                                       </VBox.margin>
-                                    </ScrollPane>
-                                 </children></VBox>
-                           </children>
-                        </HBox>
-                     </center>
-                        </BorderPane>
+                        <fx:include fx:id="ordersTab" source="OrdersTabPage.fxml"/>
                     </content>
                 </Tab>
                 <Tab text="Sales panel">
                     <content>
-                        <BorderPane prefHeight="200.0" prefWidth="200.0">
-                            <top>
-                                <GridPane BorderPane.alignment="CENTER">
-                                    <columnConstraints>
-                                        <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="140.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    </rowConstraints>
-                                    <children>
-                                        <Label text="Product name" GridPane.columnIndex="1">
-                                            <GridPane.margin>
-                                                <Insets />
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label text="Price" GridPane.columnIndex="2" />
-                                        <Label text="Available amount" GridPane.columnIndex="3" />
-                                        <Label text="Quantity to sell" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
-                                    </children>
-                                    <padding>
-                                        <Insets bottom="4.0" left="2.0" right="2.0" top="8.0" />
-                                    </padding>
-                                </GridPane>
-                            </top>
-                            <center>
-                                <ScrollPane fitToWidth="true" minHeight="-Infinity" prefHeight="300.0" BorderPane.alignment="CENTER">
-                                    <content>
-                                        <VBox fx:id="container" fillWidth="true" minWidth="-Infinity" prefWidth="1000.0">
-                                            <!--<children>
-                                               <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1020.0">
-                                                  <children>
-                                                     <GridPane layoutX="712.0" layoutY="6.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                        <columnConstraints>
-                                                           <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
-                                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="140.0" />
-                                                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
-                                                           <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
-                                                        </columnConstraints>
-                                                        <rowConstraints>
-                                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                        </rowConstraints>
-                                                        <children>
-                                                           <Label fx:id="productNameLabel" text="Label" GridPane.columnIndex="1" />
-                                                           <Label fx:id="priceLabel" text="Label" GridPane.columnIndex="2" />
-                                                           <Label fx:id="amountLabel" text="Label" GridPane.columnIndex="3" />
-                                                           <Button maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="30.0" text="-" GridPane.columnIndex="5" GridPane.halignment="LEFT" />
-                                                           <Button maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="30.0" text="+" GridPane.columnIndex="5" GridPane.halignment="RIGHT" />
-                                                           <TextField alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
-                                                        </children>
-                                                        <padding>
-                                                           <Insets bottom="4.0" top="4.0" />
-                                                        </padding>
-                                                     </GridPane>
-                                                  </children>
-                                                  <VBox.margin>
-                                                     <Insets />
-                                                  </VBox.margin>
-                                               </AnchorPane>
-                                               <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1020.0">
-                                                  <children>
-                                                     <GridPane layoutX="712.0" layoutY="6.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                        <columnConstraints>
-                                                           <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
-                                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="140.0" />
-                                                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
-                                                           <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
-                                                        </columnConstraints>
-                                                        <rowConstraints>
-                                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                        </rowConstraints>
-                                                        <children>
-                                                           <Label fx:id="productNameLabel1" text="Label" GridPane.columnIndex="1" />
-                                                           <Label fx:id="priceLabel1" text="Label" GridPane.columnIndex="2" />
-                                                           <Label fx:id="amountLabel1" text="Label" GridPane.columnIndex="3" />
-                                                           <Button maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="30.0" text="-" GridPane.columnIndex="5" GridPane.halignment="LEFT" />
-                                                           <Button maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="30.0" text="+" GridPane.columnIndex="5" GridPane.halignment="RIGHT" />
-                                                           <TextField alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
-                                                        </children>
-                                                        <padding>
-                                                           <Insets bottom="4.0" top="4.0" />
-                                                        </padding>
-                                                     </GridPane>
-                                                  </children>
-                                               </AnchorPane>
-                                            </children>-->
-                                        </VBox>
-                                    </content>
-                                </ScrollPane>
-                            </center>
-                            <bottom>
-                                <ButtonBar prefHeight="100.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
-                                    <buttons>
-                                        <Button mnemonicParsing="false" onAction="#handleSellButton" text="Sell..." />
-                                    </buttons>
-                                    <BorderPane.margin>
-                                        <Insets />
-                                    </BorderPane.margin>
-                                    <padding>
-                                        <Insets right="30.0" />
-                                    </padding>
-                                </ButtonBar>
-                            </bottom>
-                        </BorderPane>
+                        <fx:include fx:id="salesTab" source="SalesTabPage.fxml"/>
                     </content>
                 </Tab>
             </tabs>

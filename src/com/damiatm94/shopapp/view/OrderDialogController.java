@@ -1,126 +1,109 @@
 package com.damiatm94.shopapp.view;
 
-/**
- * Created by damian on 30.07.16.
- */
-
+import com.damiatm94.shopapp.model.Product;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import com.damiatm94.shopapp.model.Product;
 
 /**
- * Dialog to edit details of a person.
+ * Created by damian on 26.10.16.
  */
-public class ProductEditDialogController
+public class OrderDialogController
 {
+    @FXML private TableView<Product> ordersTable;
+    @FXML private TableColumn<Product, String> orderNameColumn;
+    @FXML private TableColumn<Product, Double> priceColumn;
+    @FXML private TableColumn<Product, Integer> amountColumn;
+    @FXML private TableColumn<Product, Integer> minAmountColumn;
 
-    @FXML
-    private TextField productNameField;
-    @FXML
-    private TextField priceField;
-    @FXML
-    private TextField amountField;
-    @FXML
-    private TextField minAmountField;
+    @FXML private TextField orderNameField;
+    @FXML private TextField priceField;
+    @FXML private TextField amountField;
+    @FXML private TextField minAmountField;
 
+    ObservableList<Product> ordersList = FXCollections.observableArrayList();
+
+    private OrdersTabController ordersMainController;
     private Stage dialogStage;
     private Product product;
-    private boolean isNewProduct;
     private boolean okClicked = false;
 
-    /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
-     */
     @FXML
     private void initialize()
     {
+        orderNameField.setPromptText("Product Name");
+        priceField.setPromptText("Price");
+        amountField.setPromptText("Amount");
+        minAmountField.setPromptText("Minimal amount");
+
+        orderNameColumn.setCellValueFactory(cellData -> cellData.getValue().productNameProperty());
+        priceColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
+        amountColumn.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
+        minAmountColumn.setCellValueFactory(cellData -> cellData.getValue().minAmountProperty().asObject());
+        ordersTable.setItems(ordersList);
     }
 
-    /**
-     * Sets the stage of this dialog.
-     *
-     * @param dialogStage
-     */
     public void setDialogStage(Stage dialogStage)
     {
         this.dialogStage = dialogStage;
     }
 
-    /**
-     * Sets product to be edited in the dialog.
-     */
-    public void setProduct(Product product, boolean isNewProduct)
-    {
-        this.product = product;
-        this.isNewProduct = isNewProduct;
-
-        if (!isNewProduct)
-        {
-            productNameField.setText(product.getProductName());
-            priceField.setText(Double.toString(product.getPrice()));
-            amountField.setText(Integer.toString(product.getAmount()));
-            minAmountField.setText(Integer.toString(product.getMinAmount()));
-        } else
-        {
-            productNameField.setText("");
-            priceField.setText("");
-            amountField.setText("");
-            minAmountField.setText("");
-        }
-
-    }
-
-    /**
-     * Returns true if the user clicked OK, false otherwise.
-     *
-     * @return
-     */
     public boolean isOkClicked()
     {
         return okClicked;
     }
 
-    /**
-     * Called when the user clicks ok.
-     */
     @FXML
-    private void handleOk()
+    private void handleButtonAdd()
     {
         if (isInputValid())
         {
-            product.setProductName(productNameField.getText());
+            product = new Product();
+            product.setProductName(orderNameField.getText());
             product.setPrice(Double.parseDouble(priceField.getText()));
             product.setAmount(Integer.parseInt(amountField.getText()));
             product.setMinAmount(Integer.parseInt(minAmountField.getText()));
 
+            ordersList.add(product);
+
+            orderNameField.clear();
+            priceField.clear();
+            amountField.clear();
+            minAmountField.clear();
+
             okClicked = true;
-            dialogStage.close();
         }
     }
 
-    /**
-     * Called when the user clicks cancel.
-     */
+    @FXML
+    private void handleButtonDelete()
+    {
+
+    }
+
+    @FXML
+    private void handleOrder()
+    {
+        ordersMainController.enrollMadeOrder();
+        dialogStage.close();
+    }
+
     @FXML
     private void handleCancel()
     {
         dialogStage.close();
     }
 
-    /**
-     * Validates the user input in the text fields.
-     *
-     * @return true if the input is valid
-     */
     private boolean isInputValid()
     {
         String errorMessage = "";
 
-        if (productNameField.getText() == null || productNameField.getText().length() == 0)
+        if (orderNameField.getText() == null || orderNameField.getText().length() == 0)
         {
             errorMessage += "No valid product name!\n";
         }
@@ -170,14 +153,13 @@ public class ProductEditDialogController
             }
         }
 
-
         if (errorMessage.length() == 0)
         {
             return true;
         } else
         {
             // Show the error message.
-            Alert alert = new Alert(AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(dialogStage);
             alert.setTitle("Invalid Fields");
             alert.setHeaderText("Please correct invalid fields");
@@ -187,5 +169,10 @@ public class ProductEditDialogController
 
             return false;
         }
+    }
+
+    public void injectMainController(OrdersTabController ordersTabController)
+    {
+        ordersMainController = ordersTabController;
     }
 }

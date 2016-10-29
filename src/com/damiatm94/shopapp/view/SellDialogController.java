@@ -14,15 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.damiatm94.shopapp.MainApp.getProductData;
-import static com.damiatm94.shopapp.view.ProductsOverviewController.getAnchorPanes;
-import static com.damiatm94.shopapp.view.ProductsOverviewController.getLabels;
-import static com.damiatm94.shopapp.view.ProductsOverviewController.getTextFields;
 
 /**
  * Created by damian on 06.08.16.
  */
 public class SellDialogController
 {
+    private SalesTabController mainController;
+
     private Stage dialogStage;
     private boolean okClicked = false;
     private List<AnchorPane> sellAnchorPanes = new ArrayList<>();
@@ -53,17 +52,11 @@ public class SellDialogController
     {
     }
 
-
     public boolean isButtonOkClicked()
     {
         return buttonOkClicked;
     }
 
-    /**
-     * Sets the stage of this dialog.
-     *
-     * @param dialogStage
-     */
     public void setDialogStage(Stage dialogStage)
     {
         this.dialogStage = dialogStage;
@@ -82,7 +75,6 @@ public class SellDialogController
         gridPane.setPrefWidth(600.0);
         gridPane.setVgap(10.0);
 
-
         //---------------------------------ADDING COLUMNS---------------------------------------
         for (int j = 0; j < 3; j++)
         {
@@ -94,7 +86,6 @@ public class SellDialogController
             column.setHalignment(HPos.CENTER);
             gridPane.getColumnConstraints().add(column);
         }
-
 
         //---------------------Adding sellLabels to gridPane and sellLabels ArrayList----------------------
         for (int k = 0; k < 3; k++)
@@ -124,7 +115,6 @@ public class SellDialogController
             }
         }
 
-
         //----------------------------------Adding children-------------------------------------
         anchorPane.getChildren().add(gridPane);
         anchorPane.setTopAnchor(gridPane, 0.0);
@@ -134,7 +124,7 @@ public class SellDialogController
         container.getChildren().add(anchorPane);
     }
 
-    public void displayProductsInfo(List<Product> productList)
+    public void displayListOfSellingProducts(List<Product> productList)
     {
         this.productList = productList;
         createSpaceForProductsInfo(productList);
@@ -149,9 +139,7 @@ public class SellDialogController
 
             labelsIterator += 3;
         }
-
         calculateAndShowSum();
-
     }
 
     @FXML
@@ -159,31 +147,27 @@ public class SellDialogController
     {
         int labelIndex = 2;
 
-        for (int n = 0; n < getAnchorPanes().size(); n++)
+        for (int n = 0; n < mainController.getAnchorPanes().size(); n++)
         {
             int newProductAmount = getProductData().get(n).getAmount() - getProductData().get(n).getQuantity();
             getProductData().get(n).setAmount(newProductAmount);
 
             getProductData().get(n).setQuantity(0);
-            getTextFields().get(n).setText(String.valueOf(getProductData().get(n).getQuantity()));
+            mainController.getTextFields().get(n).setText(String.valueOf(getProductData().get(n).getQuantity()));
 
-            getLabels().get(labelIndex).setText(String.valueOf(getProductData().get(n).getAmount()));
+            mainController.getLabels().get(labelIndex).setText(String.valueOf(getProductData().get(n).getAmount()));
             if (getProductData().get(n).getAmount() == 0)
             {
-                getLabels().get(labelIndex).setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
+                mainController.getLabels().get(labelIndex).setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
             }
 
             labelIndex += 3;
         }
 
-
         buttonOkClicked = true;
         dialogStage.close();
     }
 
-    /**
-     * Called when the user clicks cancel.
-     */
     @FXML
     private void handleButtonCancel()
     {
@@ -200,5 +184,10 @@ public class SellDialogController
         }
 
         sumLabel.setText(String.valueOf(sumPrices));
+    }
+
+    public void initSalesTabMainController(SalesTabController salesTabController)
+    {
+        mainController = salesTabController;
     }
 }
