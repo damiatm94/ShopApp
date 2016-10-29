@@ -21,4 +21,24 @@ public class Order
         this.name = name;
         this.ordersList = ordersList;
     }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public ObservableList<Product> getOrdersList()
+    {
+        return ordersList;
+    }
+
+    public void setOrdersList(ObservableList<Product> ordersList)
+    {
+        this.ordersList = ordersList;
+    }
 }
