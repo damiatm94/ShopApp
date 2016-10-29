@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="MySQL - shopAppSchemaDB@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="2.6">
+    <schema id="1" name="shopAppSchemaDB">
+      <visible>1</visible>
+    </schema>
+    <schema id="2" name="information_schema"/>
+    <table id="3" parent="1" name="Warehouse"/>
+    <table id="4" parent="1" name="hibernate_sequence"/>
+    <column id="5" parent="3" name="id">
+      <mandatory>1</mandatory>
+      <data-type>bigint(20)|0</data-type>
+    </column>
+    <column id="6" parent="3" name="Amount">
+      <data-type>int(11)|0</data-type>
+    </column>
+    <column id="7" parent="3" name="Minimal_amount">
+      <data-type>int(11)|0</data-type>
+    </column>
+    <column id="8" parent="3" name="Price">
+      <data-type>double|0</data-type>
+    </column>
+    <column id="9" parent="3" name="Product_name">
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <key id="10" parent="3" name="PRIMARY">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <column id="11" parent="4" name="next_val">
+      <data-type>bigint(20)|0</data-type>
+    </column>
+  </database-model>
+</dataSource>
