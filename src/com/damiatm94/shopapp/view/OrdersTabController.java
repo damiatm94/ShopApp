@@ -19,8 +19,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by damian on 29.09.16.
@@ -36,6 +37,7 @@ public class OrdersTabController
     private List<Button> showButtons = new ArrayList<>();
     private List<Button> confirmButtons = new ArrayList<>();
     private List<Button> undoButtons = new ArrayList<>();
+    Image confirmImage, showImage, undoImage;
     private GridPane gridPane;
 
     @FXML
@@ -48,6 +50,9 @@ public class OrdersTabController
     @FXML
     private void initialize()
     {
+        confirmImage = new Image("file:resources/images/show_ico.png");
+        showImage = new Image("file:resources/images/confirm_ico.png");
+        undoImage = new Image("file:resources/images/undo_ico.png");
     }
 
     @FXML
@@ -70,7 +75,9 @@ public class OrdersTabController
 
         //---------------------------Adding labels to gridPane----------------------------------
         Label ordersDateLabel = new Label();
-        ordersDateLabel.setText("Test ");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy/ HH:mm:ss");
+        Date date = new Date();
+        ordersDateLabel.setText("O/" + dateFormat.format(date));
         ordersLabelsList.add(ordersDateLabel);
 
         gridPane = createGridPane();
@@ -78,33 +85,26 @@ public class OrdersTabController
         gridPane.setColumnIndex(ordersDateLabel, 0);
 
         //----------------------------------Adding buttons--------------------------------------
-        Image showImage = new Image("file:resources/images/confirm_ico.png");
-        Button buttonShowPreview = new Button("Confirm");
-        showButtons.add(buttonShowPreview);
-        buttonShowPreview.setMaxWidth(90);
-        buttonShowPreview.setMaxHeight(20);
-        buttonShowPreview.setGraphic(new ImageView(showImage));
-        gridPane.setConstraints(buttonShowPreview, 1, 0, 1, 1, HPos.CENTER, VPos.CENTER);
-
-        Image confirmImage = new Image("file:resources/images/show_ico.png");
         Button buttonConfirmDelivery = new Button("Show");
         confirmButtons.add(buttonConfirmDelivery);
         buttonConfirmDelivery.setMaxWidth(80);
         buttonConfirmDelivery.setMaxHeight(20);;
         buttonConfirmDelivery.setGraphic(new ImageView(confirmImage));
-        gridPane.setConstraints(buttonConfirmDelivery, 2, 0, 1, 1, HPos.RIGHT, VPos.CENTER);
+        gridPane.setConstraints(buttonConfirmDelivery, 1, 0, 1, 1, HPos.CENTER, VPos.CENTER);
 
-        Image undoImage = new Image("file:resources/images/undo_ico.png");
+        Button buttonShowPreview = new Button("Confirm");
+        showButtons.add(buttonShowPreview);
+        buttonShowPreview.setMaxWidth(90);
+        buttonShowPreview.setMaxHeight(20);
+        buttonShowPreview.setGraphic(new ImageView(showImage));
+        gridPane.setConstraints(buttonShowPreview, 2, 0, 1, 1, HPos.RIGHT, VPos.CENTER);
+
         Button buttonUndoOrder = new Button("Undo");
         undoButtons.add(buttonUndoOrder);
         buttonUndoOrder.setMaxWidth(80);
         buttonUndoOrder.setMaxHeight(20);
         buttonUndoOrder.setGraphic(new ImageView(undoImage));
         gridPane.setConstraints(buttonUndoOrder, 3, 0, 1, 1, HPos.LEFT, VPos.CENTER);
-
-        //Image confirmImage = new Image(getClass().getResourceAsStream("ShopAppIcon.png"));
-
-
 
         //----------------------------------Adding children-------------------------------------
         gridPane.getChildren().addAll(ordersDateLabel, buttonShowPreview, buttonConfirmDelivery, buttonUndoOrder);
@@ -130,12 +130,12 @@ public class OrdersTabController
         for (int i = 0; i < columnsList.length; i++)
         {
             columnsList[i] = new ColumnConstraints();
-            columnsList[i].setHgrow(Priority.SOMETIMES);
             columnsList[i].setPrefWidth(100);
             columnsList[i].setMinWidth(10);
             columnsList[i].setMaxWidth(Region.USE_COMPUTED_SIZE);
             gridPane.getColumnConstraints().add(columnsList[i]);
         }
+        columnsList[0].setHgrow(Priority.SOMETIMES);
 
         return gridPane;
     }

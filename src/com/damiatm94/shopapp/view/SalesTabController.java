@@ -13,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -39,6 +41,7 @@ public class SalesTabController implements ProductsListener
     private static List<TextField> textFields = new ArrayList<>();
     private List<Button> minusButtons = new ArrayList<>();
     private List<Button> plusButtons = new ArrayList<>();
+    Image plusImage, minusImage;
 
     private static int selectedIndexForSales;
     private static Product selectedSalesProduct;
@@ -75,6 +78,9 @@ public class SalesTabController implements ProductsListener
     @FXML
     private void initialize()
     {
+        plusImage = new Image("file:resources/images/plus_ico.png");
+        minusImage = new Image("file:resources/images/minus_ico.png");
+
         // Load some dummy products' data if they are existing
         loadDummiesToSalesPanel();
     }
@@ -156,9 +162,11 @@ public class SalesTabController implements ProductsListener
         quantityTextField.setAlignment(Pos.CENTER);
         gridPane.setConstraints(quantityTextField, 5, 0, 1, 1, HPos.CENTER, VPos.CENTER);
 
-        Button buttonMinus = new Button("-");
+        Button buttonMinus = new Button();
+        buttonMinus.setGraphic(new ImageView(minusImage));
         minusButtons.add(buttonMinus);
-        buttonMinus.setMaxWidth(30);
+        buttonMinus.setMaxWidth(20);
+        buttonMinus.setMaxHeight(20);
         buttonMinus.setOnAction(event ->
         {
             int k = product.getQuantity() - 1;
@@ -170,9 +178,12 @@ public class SalesTabController implements ProductsListener
         });
         gridPane.setConstraints(buttonMinus, 5, 0, 1, 1, HPos.LEFT, VPos.CENTER);
 
-        Button buttonPlus = new Button("+");
+
+        Button buttonPlus = new Button();
         plusButtons.add(buttonPlus);
-        buttonPlus.setMaxWidth(30);
+        buttonPlus.setMaxWidth(20);
+        buttonPlus.setMaxHeight(20);
+        buttonPlus.setGraphic(new ImageView(plusImage));
         buttonPlus.setOnAction(event ->
         {
             if (product.getQuantity() + 1 <= product.getAmount())

@@ -18,7 +18,7 @@
    <center>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="512.0" HBox.hgrow="ALWAYS">
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
                <children>
                   <GridPane>
                      <columnConstraints>
@@ -57,7 +57,7 @@
                </children>
             </VBox>
             <Separator orientation="VERTICAL" prefHeight="200.0" prefWidth="1.0" />
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="511.0" HBox.hgrow="ALWAYS">
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="423.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label text="Orders history">
                      <VBox.margin>
