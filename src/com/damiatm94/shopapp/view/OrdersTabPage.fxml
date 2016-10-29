@@ -83,7 +83,7 @@
             <Separator prefWidth="200.0" />
             <ButtonBar minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0">
               <buttons>
-                <Button mnemonicParsing="false" onAction="#handleButtonDelete" text="Delete" />
+                <Button mnemonicParsing="false" text="Delete" />
               </buttons>
                <VBox.margin>
                   <Insets right="30.0" />

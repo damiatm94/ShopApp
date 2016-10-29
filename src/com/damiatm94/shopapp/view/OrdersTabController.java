@@ -30,6 +30,7 @@ public class OrdersTabController
 {
     private MainApp mainApp;
     private ProductsOverviewController mainController;
+    private boolean isNewOrder = true;
 
     private ColumnConstraints[] columnsList = new ColumnConstraints[4];
     private static List<Label> ordersLabelsList = new ArrayList<>();
@@ -58,13 +59,23 @@ public class OrdersTabController
     @FXML
     public void handleButtonNewOrder()
     {
-        showOrderDialog();
+        showOrderDialog(isNewOrder);
     }
 
-    @FXML
-    public void handleButtonDelete()
+    public void handleButtonShowInfo()
     {
-        gridPane.getChildren().remove(1);
+        isNewOrder = false;
+        showOrderDialog(isNewOrder);
+    }
+
+    public void handleButtonConfirm()
+    {
+
+    }
+
+    public void handleButtonUndo()
+    {
+
     }
 
     public void enrollMadeOrder()
@@ -88,8 +99,10 @@ public class OrdersTabController
         Button buttonConfirmDelivery = new Button("Show");
         confirmButtons.add(buttonConfirmDelivery);
         buttonConfirmDelivery.setMaxWidth(80);
-        buttonConfirmDelivery.setMaxHeight(20);;
+        buttonConfirmDelivery.setMaxHeight(20);
+        ;
         buttonConfirmDelivery.setGraphic(new ImageView(confirmImage));
+        buttonConfirmDelivery.setOnAction(event -> handleButtonShowInfo());
         gridPane.setConstraints(buttonConfirmDelivery, 1, 0, 1, 1, HPos.CENTER, VPos.CENTER);
 
         Button buttonShowPreview = new Button("Confirm");
@@ -97,6 +110,7 @@ public class OrdersTabController
         buttonShowPreview.setMaxWidth(90);
         buttonShowPreview.setMaxHeight(20);
         buttonShowPreview.setGraphic(new ImageView(showImage));
+        buttonShowPreview.setOnAction(event -> handleButtonConfirm());
         gridPane.setConstraints(buttonShowPreview, 2, 0, 1, 1, HPos.RIGHT, VPos.CENTER);
 
         Button buttonUndoOrder = new Button("Undo");
@@ -104,6 +118,7 @@ public class OrdersTabController
         buttonUndoOrder.setMaxWidth(80);
         buttonUndoOrder.setMaxHeight(20);
         buttonUndoOrder.setGraphic(new ImageView(undoImage));
+        buttonUndoOrder.setOnAction(event -> handleButtonUndo());
         gridPane.setConstraints(buttonUndoOrder, 3, 0, 1, 1, HPos.LEFT, VPos.CENTER);
 
         //----------------------------------Adding children-------------------------------------
@@ -140,7 +155,7 @@ public class OrdersTabController
         return gridPane;
     }
 
-    public boolean showOrderDialog()
+    public boolean showOrderDialog(boolean isNewOrder)
     {
         try
         {
@@ -157,8 +172,13 @@ public class OrdersTabController
             //dialogStage.setResizable(false);
             //primaryStage.setResizable(true);
 
-            dialogStage.setTitle("Make new order");
-
+            if (isNewOrder)
+            {
+                dialogStage.setTitle("Make new order");
+            } else
+            {
+                dialogStage.setTitle("Info about: " + "NAZWA");
+            }
             OrderDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.injectMainController(this);
