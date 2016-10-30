@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.BorderPane?>
@@ -15,81 +16,88 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="ordersTab" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.damiatm94.shopapp.view.OrdersTabController">
-   <center>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <GridPane>
-                     <columnConstraints>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Label text="Make new order">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
+    <center>
+        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
+                    <children>
+                        <GridPane>
+                            <columnConstraints>
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label text="Make new order">
+                                    <font>
+                                        <Font size="20.0" />
+                                    </font>
+                                </Label>
+                                <Button mnemonicParsing="false" onAction="#handleButtonNewOrder" text="New order" GridPane.rowIndex="1" />
+                            </children>
+                        </GridPane>
+                        <Separator prefWidth="200.0" />
+                        <Label text="Made orders">
+                            <VBox.margin>
+                                <Insets bottom="20.0" top="30.0" />
+                            </VBox.margin>
+                            <font>
+                                <Font size="20.0" />
+                            </font>
                         </Label>
-                        <Button mnemonicParsing="false" onAction="#handleButtonNewOrder" text="New order" GridPane.rowIndex="1" />
-                     </children>
-                  </GridPane>
-                  <Separator prefWidth="200.0" />
-                  <Label text="Made orders">
-                     <VBox.margin>
-                        <Insets bottom="20.0" top="30.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <ScrollPane fitToWidth="true" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                     <VBox.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" />
-                     </VBox.margin>
-                     <content>
-                        <VBox fx:id="madeOrdersVBox" prefWidth="100.0" />
-                     </content>
-                  </ScrollPane>
-               </children>
-            </VBox>
-            <Separator orientation="VERTICAL" prefHeight="200.0" prefWidth="1.0" />
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="423.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <Label text="Orders history">
-                     <VBox.margin>
-                        <Insets bottom="30.0" top="30.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <ScrollPane fitToWidth="true" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                     <VBox.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                     </VBox.margin>
-                  </ScrollPane>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-   </center>
-   <bottom>
-      <VBox prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <Separator prefWidth="200.0" />
-            <ButtonBar minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0">
-              <buttons>
-                <Button mnemonicParsing="false" text="Delete" />
-              </buttons>
-               <VBox.margin>
-                  <Insets right="30.0" />
-               </VBox.margin>
-            </ButtonBar>
-         </children>
-      </VBox>
-   </bottom>
+                        <ScrollPane fitToWidth="true" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                            <VBox.margin>
+                                <Insets bottom="20.0" left="20.0" right="20.0" />
+                            </VBox.margin>
+                            <content>
+                                <VBox fx:id="madeOrdersVBox" prefWidth="100.0" />
+                            </content>
+                        </ScrollPane>
+                    </children>
+                </VBox>
+                <Separator orientation="VERTICAL" prefHeight="200.0" prefWidth="1.0" />
+                <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="423.0" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label text="Orders history">
+                            <VBox.margin>
+                                <Insets bottom="30.0" top="30.0" />
+                            </VBox.margin>
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </Label>
+                        <BorderPane prefHeight="352.0" prefWidth="421.0" VBox.vgrow="ALWAYS">
+                            <center>
+                                <ListView prefHeight="352.0" prefWidth="351.0">
+                                    <BorderPane.margin>
+                                        <Insets />
+                                    </BorderPane.margin>
+                                </ListView>
+                            </center>
+                            <VBox.margin>
+                                <Insets bottom="20.0" left="20.0" right="20.0" />
+                            </VBox.margin>
+                        </BorderPane>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </center>
+    <bottom>
+        <VBox prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+                <Separator prefWidth="200.0" />
+                <ButtonBar minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0">
+                    <buttons>
+                        <Button mnemonicParsing="false" text="Delete" />
+                    </buttons>
+                    <VBox.margin>
+                        <Insets right="30.0" />
+                    </VBox.margin>
+                </ButtonBar>
+            </children>
+        </VBox>
+    </bottom>
 </BorderPane>

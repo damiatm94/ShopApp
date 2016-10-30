@@ -11,6 +11,8 @@ import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -58,6 +60,9 @@ public class OrdersTabController
     @FXML
     private VBox madeOrdersVBox;
 
+    @FXML
+    private ListView<Label> listView;
+
     public OrdersTabController()
     {
     }
@@ -87,9 +92,14 @@ public class OrdersTabController
 
     }
 
-    public void handleButtonUndo(int number)
+    public void handleButtonUndo(AnchorPane anchorPane, Label label, Button button1, Button button2, Button button3)
     {
-        System.out.println("Przycisk numer: " + number);
+        ordersLabelsList.remove(label);
+        showButtons.remove(button1);
+        confirmButtons.remove(button2);
+        undoButtons.remove(button3);
+        madeOrdersVBox.getChildren().remove(anchorPane);
+        rowAnchorList.remove(anchorPane);
     }
 
     public void enrollMadeOrder()
@@ -130,7 +140,8 @@ public class OrdersTabController
         buttonUndoOrder.setMaxWidth(80);
         buttonUndoOrder.setMaxHeight(20);
         buttonUndoOrder.setGraphic(new ImageView(undoImage));
-        buttonUndoOrder.setOnAction(event -> handleButtonUndo(rowAnchorList.size()-1));
+        buttonUndoOrder.setOnAction(event -> handleButtonUndo(
+                rowAnchorPane, orderName, buttonShowPreview, buttonConfirmDelivery, buttonConfirmDelivery));
         gridPane.setConstraints(buttonUndoOrder, 3, 0, 1, 1, HPos.LEFT, VPos.CENTER);
 
         //----------------------------------Adding children-------------------------------------
