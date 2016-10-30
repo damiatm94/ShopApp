@@ -2,7 +2,7 @@ package com.damiatm94.shopapp.view;
 
 
 import com.damiatm94.shopapp.MainApp;
-import com.damiatm94.shopapp.model.Product;
+import com.damiatm94.shopapp.model.Order;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
@@ -11,7 +11,6 @@ import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -19,8 +18,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -33,6 +30,7 @@ public class OrdersTabController
     private boolean isNewOrder = true;
     private String nameOfOrder;
 
+    ArrayList<Order> ordersList = new ArrayList<>();
     private ColumnConstraints[] columnsList = new ColumnConstraints[4];
     private static List<Label> ordersLabelsList = new ArrayList<>();
     private static List<AnchorPane> rowAnchorList = new ArrayList<>();
@@ -42,13 +40,23 @@ public class OrdersTabController
     Image confirmImage, showImage, undoImage;
     private GridPane gridPane;
 
+    public ArrayList<Order> getOrdersList()
+    {
+        return ordersList;
+    }
+
+    public void setOrdersList(ArrayList<Order> ordersList)
+    {
+        this.ordersList = ordersList;
+    }
+
     public void setNameOfOrder(String nameOfOrder)
     {
         this.nameOfOrder = nameOfOrder;
     }
 
     @FXML
-    private VBox vBox;
+    private VBox madeOrdersVBox;
 
     public OrdersTabController()
     {
@@ -79,9 +87,9 @@ public class OrdersTabController
 
     }
 
-    public void handleButtonUndo()
+    public void handleButtonUndo(int number)
     {
-
+        System.out.println("Przycisk numer: " + number);
     }
 
     public void enrollMadeOrder()
@@ -92,8 +100,6 @@ public class OrdersTabController
 
         //---------------------------Adding labels to gridPane----------------------------------
         Label orderName = new Label();
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy/ HH:mm:ss");
-        Date date = new Date();
         orderName.setText(nameOfOrder);
         ordersLabelsList.add(orderName);
 
@@ -124,7 +130,7 @@ public class OrdersTabController
         buttonUndoOrder.setMaxWidth(80);
         buttonUndoOrder.setMaxHeight(20);
         buttonUndoOrder.setGraphic(new ImageView(undoImage));
-        buttonUndoOrder.setOnAction(event -> handleButtonUndo());
+        buttonUndoOrder.setOnAction(event -> handleButtonUndo(rowAnchorList.size()-1));
         gridPane.setConstraints(buttonUndoOrder, 3, 0, 1, 1, HPos.LEFT, VPos.CENTER);
 
         //----------------------------------Adding children-------------------------------------
@@ -135,7 +141,7 @@ public class OrdersTabController
         rowAnchorPane.setLeftAnchor(gridPane, 0.0);
         rowAnchorPane.setRightAnchor(gridPane, 0.0);
 
-        vBox.getChildren().add(rowAnchorPane);
+        madeOrdersVBox.getChildren().add(rowAnchorPane);
     }
 
     public GridPane createGridPane()

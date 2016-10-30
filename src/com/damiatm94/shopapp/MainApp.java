@@ -62,7 +62,7 @@ public class MainApp extends Application
 
             //give the controller access to the main app
             RootLayoutController controller = sceneLoader.getController();
-            //controller.setMainApp(this);
+            controller.setMainApp(this);
         } catch (IOException e)
         {
             e.printStackTrace();

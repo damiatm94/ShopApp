@@ -38,7 +38,6 @@ public class OrderDialogController
     private TextField amountField;
 
     ObservableList<Product> listOfProducts = FXCollections.observableArrayList();
-    ArrayList<Order> ordersList = new ArrayList<>();
 
     private Order order;
     private OrdersTabController ordersMainController;
@@ -83,12 +82,11 @@ public class OrderDialogController
 
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy/ HH:mm:ss");
             Date date = new Date();
-            String nameOfOrder = "O/" + dateFormat.format(date);
-            System.out.println(nameOfOrder);
+            String nameOfOrder = "Order/" + dateFormat.format(date);
 
             Order order = new Order(nameOfOrder, listOfProducts);
             ordersMainController.setNameOfOrder(order.getName());
-            ordersList.add(order);
+            ordersMainController.getOrdersList().add(order);
 
             orderNameField.clear();
             priceField.clear();
