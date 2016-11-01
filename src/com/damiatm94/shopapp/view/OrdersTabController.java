@@ -35,7 +35,6 @@ public class OrdersTabController
 {
     private MainApp mainApp;
     private ProductsOverviewController mainController;
-    private boolean isNewOrder = true;
     private String nameOfOrder;
     private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy/ HH:mm:ss");
 
@@ -98,13 +97,12 @@ public class OrdersTabController
     @FXML
     public void handleButtonNewOrder()
     {
-        showOrderDialog(isNewOrder);
+        showOrderDialog();
     }
 
     public void handleButtonShowInfo(Order order)
     {
-        isNewOrder = false;
-        showOrderDialog(isNewOrder);
+        showMadeOrderInfo(order);
     }
 
     public void handleButtonConfirm(Order order)
@@ -153,27 +151,27 @@ public class OrdersTabController
         gridPane.setColumnIndex(orderName, 0);
 
         //----------------------------------Adding buttons--------------------------------------
-        Button buttonConfirmDelivery = new Button("Show");
-        confirmButtons.add(buttonConfirmDelivery);
-        buttonConfirmDelivery.setMaxWidth(80);
-        buttonConfirmDelivery.setMaxHeight(20);
-        ;
-        buttonConfirmDelivery.setGraphic(new ImageView(confirmImage));
-        buttonConfirmDelivery.setOnAction(event -> handleButtonShowInfo(order));
-        gridPane.setConstraints(buttonConfirmDelivery, 1, 0, 1, 1, HPos.CENTER, VPos.CENTER);
-
-        Button buttonShowPreview = new Button("Confirm");
-        showButtons.add(buttonShowPreview);
-        buttonShowPreview.setMaxWidth(90);
+        Button buttonShowPreview = new Button("Show");
+        confirmButtons.add(buttonShowPreview);
+        buttonShowPreview.setMaxWidth(80);
         buttonShowPreview.setMaxHeight(20);
-        buttonShowPreview.setGraphic(new ImageView(showImage));
-        buttonShowPreview.setOnAction(event ->
+        ;
+        buttonShowPreview.setGraphic(new ImageView(confirmImage));
+        buttonShowPreview.setOnAction(event -> handleButtonShowInfo(order));
+        gridPane.setConstraints(buttonShowPreview, 1, 0, 1, 1, HPos.CENTER, VPos.CENTER);
+
+        Button buttonConfirmDelivery = new Button("Confirm");
+        confirmButtons.add(buttonConfirmDelivery);
+        buttonConfirmDelivery.setMaxWidth(90);
+        buttonConfirmDelivery.setMaxHeight(20);
+        buttonConfirmDelivery.setGraphic(new ImageView(showImage));
+        buttonConfirmDelivery.setOnAction(event ->
         {
             handleButtonConfirm(order);
             handleButtonUndo(
                     rowAnchorPane, orderName, buttonShowPreview, buttonConfirmDelivery, buttonConfirmDelivery, order);
         });
-        gridPane.setConstraints(buttonShowPreview, 2, 0, 1, 1, HPos.RIGHT, VPos.CENTER);
+        gridPane.setConstraints(buttonConfirmDelivery, 2, 0, 1, 1, HPos.RIGHT, VPos.CENTER);
 
         Button buttonUndoOrder = new Button("Undo");
         undoButtons.add(buttonUndoOrder);
@@ -218,7 +216,40 @@ public class OrdersTabController
         return gridPane;
     }
 
-    public boolean showOrderDialog(boolean isNewOrder)
+    public boolean showMadeOrderInfo(Order order)
+    {
+        try
+        {
+            mainApp = new MainApp();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/MadeOrderInfo.fxml"));
+            VBox page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainApp.getPrimaryStage());
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            //dialogStage.setResizable(false);
+            //primaryStage.setResizable(true);
+
+            dialogStage.setTitle("Info about: " + order.getName());
+
+            MadeOrderController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setMadeOrder(order);
+
+            dialogStage.showAndWait();
+            return controller.isOkClicked();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public boolean showOrderDialog()
     {
         try
         {
@@ -235,13 +266,8 @@ public class OrdersTabController
             //dialogStage.setResizable(false);
             //primaryStage.setResizable(true);
 
-            if (isNewOrder)
-            {
-                dialogStage.setTitle("Make new order");
-            } else
-            {
-                dialogStage.setTitle("Info about: " + "NAZWA");
-            }
+            dialogStage.setTitle("Make new order");
+
             OrderDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.injectMainController(this);
