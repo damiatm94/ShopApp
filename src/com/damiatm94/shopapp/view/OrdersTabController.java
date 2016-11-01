@@ -26,6 +26,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static com.damiatm94.shopapp.MainApp.getProductData;
+
 /**
  * Created by damian on 29.09.16.
  */
@@ -111,7 +113,14 @@ public class OrdersTabController
         Label nameOfOrder = new Label();
         nameOfOrder.setText(String.format(order.getName() +
                 "  |   Date of delivery confirmation: " + dateFormat.format(dateOfDeliveryConfirmation)));
-        listOfOrdersHistory.add(nameOfOrder);
+
+        for (int i = 0; i < order.getListOfProducts().size(); i++)
+        {
+            System.out.println(order.getListOfProducts().get(i).getProductName());
+            getProductData().add(order.getListOfProducts().get(i));
+            mainController.getSalesTabController().addNewProduct(order.getListOfProducts().get(i));
+            listOfOrdersHistory.add(nameOfOrder);
+        }
     }
 
     public void handleButtonUndo(
