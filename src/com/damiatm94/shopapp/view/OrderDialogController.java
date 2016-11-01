@@ -73,20 +73,13 @@ public class OrderDialogController
     {
         if (isInputValid())
         {
+            System.out.println("Before ADD: " + listOfProducts.size());
             product = new Product();
             product.setProductName(orderNameField.getText());
             product.setPrice(Double.parseDouble(priceField.getText()));
             product.setAmount(Integer.parseInt(amountField.getText()));
             product.setMinAmount(0);
             listOfProducts.add(product);
-
-            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy/ HH:mm:ss");
-            Date date = new Date();
-            String nameOfOrder = "Order/" + dateFormat.format(date);
-
-            Order order = new Order(nameOfOrder, listOfProducts);
-            ordersMainController.setNameOfOrder(order.getName());
-            ordersMainController.getOrdersList().add(order);
 
             orderNameField.clear();
             priceField.clear();
@@ -105,12 +98,20 @@ public class OrderDialogController
     @FXML
     private void handleOrder()
     {
-        System.out.println(listOfProducts.size());
+        Date date = new Date();
+        String nameOfOrder = "Order/" + ordersMainController.getDateFormat().format(date);
+
         if (listOfProducts.size() != 0)
         {
-            ordersMainController.enrollMadeOrder();
+            Order order = new Order(nameOfOrder, listOfProducts);
+            ordersMainController.setNameOfOrder(order.getName());
+            ordersMainController.getOrdersList().add(order);
+
+            ordersMainController.enrollMadeOrder(
+                    ordersMainController.getOrdersList().get(ordersMainController.getOrdersList().size() - 1));
         }
         dialogStage.close();
+        System.out.println("After ORDER: " + listOfProducts.size());
     }
 
     @FXML

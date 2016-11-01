@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 public class Order
 {
     private String name;
-    private ObservableList<Product> listOfProducts = FXCollections.observableArrayList();
+    private ObservableList<Product> listOfProducts;
 
     public Order()
     {

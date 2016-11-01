@@ -3,6 +3,8 @@ package com.damiatm94.shopapp.view;
 
 import com.damiatm94.shopapp.MainApp;
 import com.damiatm94.shopapp.model.Order;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
@@ -20,6 +22,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -31,7 +35,9 @@ public class OrdersTabController
     private ProductsOverviewController mainController;
     private boolean isNewOrder = true;
     private String nameOfOrder;
+    private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy/ HH:mm:ss");
 
+    private ObservableList<Label> listOfOrdersHistory = FXCollections.observableArrayList();
     ArrayList<Order> ordersList = new ArrayList<>();
     private ColumnConstraints[] columnsList = new ColumnConstraints[4];
     private static List<Label> ordersLabelsList = new ArrayList<>();
@@ -57,6 +63,16 @@ public class OrdersTabController
         this.nameOfOrder = nameOfOrder;
     }
 
+    public DateFormat getDateFormat()
+    {
+        return dateFormat;
+    }
+
+    public void setDateFormat(DateFormat dateFormat)
+    {
+        this.dateFormat = dateFormat;
+    }
+
     @FXML
     private VBox madeOrdersVBox;
 
@@ -73,6 +89,8 @@ public class OrdersTabController
         confirmImage = new Image("file:resources/images/show_ico.png");
         showImage = new Image("file:resources/images/confirm_ico.png");
         undoImage = new Image("file:resources/images/undo_ico.png");
+        listView.setItems(listOfOrdersHistory);
+
     }
 
     @FXML
@@ -81,28 +99,36 @@ public class OrdersTabController
         showOrderDialog(isNewOrder);
     }
 
-    public void handleButtonShowInfo()
+    public void handleButtonShowInfo(Order order)
     {
         isNewOrder = false;
         showOrderDialog(isNewOrder);
     }
 
-    public void handleButtonConfirm()
+    public void handleButtonConfirm(Order order)
     {
-
+        Date dateOfDeliveryConfirmation = new Date();
+        Label nameOfOrder = new Label();
+        nameOfOrder.setText(String.format(order.getName() +
+                "  |   Date of delivery confirmation: " + dateFormat.format(dateOfDeliveryConfirmation)));
+        listOfOrdersHistory.add(nameOfOrder);
     }
 
-    public void handleButtonUndo(AnchorPane anchorPane, Label label, Button button1, Button button2, Button button3)
+    public void handleButtonUndo(
+            AnchorPane anchorPane, Label label, Button button1, Button button2, Button button3, Order order)
     {
+        System.out.println("Ilość zamówień przed UNDO: " + getOrdersList().size());
         ordersLabelsList.remove(label);
         showButtons.remove(button1);
         confirmButtons.remove(button2);
         undoButtons.remove(button3);
         madeOrdersVBox.getChildren().remove(anchorPane);
         rowAnchorList.remove(anchorPane);
+        getOrdersList().remove(order);
+        System.out.println("Ilość zamówień po: " + getOrdersList().size());
     }
 
-    public void enrollMadeOrder()
+    public void enrollMadeOrder(Order order)
     {
         AnchorPane rowAnchorPane = new AnchorPane();
         rowAnchorPane.setMaxWidth(Double.MAX_VALUE);
@@ -124,7 +150,7 @@ public class OrdersTabController
         buttonConfirmDelivery.setMaxHeight(20);
         ;
         buttonConfirmDelivery.setGraphic(new ImageView(confirmImage));
-        buttonConfirmDelivery.setOnAction(event -> handleButtonShowInfo());
+        buttonConfirmDelivery.setOnAction(event -> handleButtonShowInfo(order));
         gridPane.setConstraints(buttonConfirmDelivery, 1, 0, 1, 1, HPos.CENTER, VPos.CENTER);
 
         Button buttonShowPreview = new Button("Confirm");
@@ -132,7 +158,12 @@ public class OrdersTabController
         buttonShowPreview.setMaxWidth(90);
         buttonShowPreview.setMaxHeight(20);
         buttonShowPreview.setGraphic(new ImageView(showImage));
-        buttonShowPreview.setOnAction(event -> handleButtonConfirm());
+        buttonShowPreview.setOnAction(event ->
+        {
+            handleButtonConfirm(order);
+            handleButtonUndo(
+                    rowAnchorPane, orderName, buttonShowPreview, buttonConfirmDelivery, buttonConfirmDelivery, order);
+        });
         gridPane.setConstraints(buttonShowPreview, 2, 0, 1, 1, HPos.RIGHT, VPos.CENTER);
 
         Button buttonUndoOrder = new Button("Undo");
@@ -141,7 +172,7 @@ public class OrdersTabController
         buttonUndoOrder.setMaxHeight(20);
         buttonUndoOrder.setGraphic(new ImageView(undoImage));
         buttonUndoOrder.setOnAction(event -> handleButtonUndo(
-                rowAnchorPane, orderName, buttonShowPreview, buttonConfirmDelivery, buttonConfirmDelivery));
+                rowAnchorPane, orderName, buttonShowPreview, buttonConfirmDelivery, buttonConfirmDelivery, order));
         gridPane.setConstraints(buttonUndoOrder, 3, 0, 1, 1, HPos.LEFT, VPos.CENTER);
 
         //----------------------------------Adding children-------------------------------------
