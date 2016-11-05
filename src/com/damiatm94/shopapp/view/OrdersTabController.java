@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -32,12 +33,12 @@ import static com.damiatm94.shopapp.MainApp.getProductData;
  */
 public class OrdersTabController
 {
-    private MainApp mainApp;
+    private MainApp mainApp = new MainApp();
     private ProductsOverviewController mainController;
     private String nameOfOrder;
     private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy/ HH:mm:ss");
 
-    private ObservableList<Label> listOfOrdersHistory = FXCollections.observableArrayList();
+    private ObservableList<Order> listOfOrdersHistory = FXCollections.observableArrayList();
     ArrayList<Order> ordersList = new ArrayList<>();
     private ColumnConstraints[] columnsList = new ColumnConstraints[4];
     private static List<Label> ordersLabelsList = new ArrayList<>();
@@ -47,6 +48,9 @@ public class OrdersTabController
     private List<Button> undoButtons = new ArrayList<>();
     Image confirmImage, showImage, undoImage;
     private GridPane gridPane;
+
+    @FXML private VBox madeOrdersVBox;
+    @FXML private ListView<Order> listView;
 
     public ArrayList<Order> getOrdersList()
     {
@@ -72,12 +76,6 @@ public class OrdersTabController
     {
         this.dateFormat = dateFormat;
     }
-
-    @FXML
-    private VBox madeOrdersVBox;
-
-    @FXML
-    private ListView<Label> listView;
 
     public OrdersTabController()
     {
@@ -107,17 +105,14 @@ public class OrdersTabController
     public void handleButtonConfirm(Order order)
     {
         Date dateOfDeliveryConfirmation = new Date();
-        Label nameOfOrder = new Label();
-        nameOfOrder.setText(String.format(order.getName() +
-                "  |   Date of delivery confirmation: " + dateFormat.format(dateOfDeliveryConfirmation)));
+        order.setDateOfDeliveryConfirmation(dateFormat.format(dateOfDeliveryConfirmation));
 
         for (int i = 0; i < order.getListOfProducts().size(); i++)
         {
-            System.out.println(order.getListOfProducts().get(i).getProductName());
             getProductData().add(order.getListOfProducts().get(i));
             mainController.getSalesTabController().addNewProduct(order.getListOfProducts().get(i));
-            listOfOrdersHistory.add(nameOfOrder);
         }
+        listOfOrdersHistory.add(order);
     }
 
     public void handleButtonUndo(
@@ -132,6 +127,12 @@ public class OrdersTabController
         rowAnchorList.remove(anchorPane);
         getOrdersList().remove(order);
         System.out.println("Ilość zamówień po: " + getOrdersList().size());
+    }
+
+    public void handleButtonShowDetails()
+    {
+        Order order = listView.getSelectionModel().getSelectedItem();
+        showOrdersHistoryItem(order);
     }
 
     public void enrollMadeOrder(Order order)
@@ -215,45 +216,10 @@ public class OrdersTabController
         return gridPane;
     }
 
-    public boolean showMadeOrderInfo(Order order)
-    {
-        try
-        {
-            mainApp = new MainApp();
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/MadeOrderInfo.fxml"));
-            VBox page = loader.load();
-
-            Stage dialogStage = new Stage();
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(mainApp.getPrimaryStage());
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-            //dialogStage.setResizable(false);
-            //primaryStage.setResizable(true);
-
-            dialogStage.setTitle("Details");
-
-            MadeOrderInfoController controller = loader.getController();
-            controller.getTitleLabel().setText("Info about: " + order.getName());
-            controller.setDialogStage(dialogStage);
-            controller.setMadeOrder(order);
-
-            dialogStage.showAndWait();
-            return controller.isOkClicked();
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-            return false;
-        }
-
-    }
-
     public boolean showOrderDialog()
     {
         try
         {
-            mainApp = new MainApp();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/OrderDialog.fxml"));
             VBox page = loader.load();
@@ -281,8 +247,76 @@ public class OrdersTabController
         }
     }
 
+    public boolean showMadeOrderInfo(Order order)
+    {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/OrderOrSaleInfo.fxml"));
+            VBox page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainApp.getPrimaryStage());
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            //dialogStage.setResizable(false);
+            //primaryStage.setResizable(true);
+
+            dialogStage.setTitle("Details");
+
+            OrderOrSaleInfoController controller = loader.getController();
+            controller.initOrdersTabMainController(this);
+            controller.getTitleLabel().setText("Info about: " + order.getName());
+            controller.setDialogStage(dialogStage);
+            controller.displayListOfProducts(order.getListOfProducts());
+
+            dialogStage.showAndWait();
+            return controller.isButtonOkClicked();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean showOrdersHistoryItem(Order order)
+    {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/OrderOrSaleInfo.fxml"));
+            VBox page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainApp.getPrimaryStage());
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            //dialogStage.setResizable(false);
+            //primaryStage.setResizable(true);
+
+            dialogStage.setTitle("Show info abot delivered order");
+
+            OrderOrSaleInfoController controller = loader.getController();
+            controller.initOrdersTabMainController(this);
+            controller.getTitleLabel().setText("Info about: " + order.getName());
+            controller.getDateLabel().setText("Delivery date: \n" + order.getDateOfDeliveryConfirmation());
+            controller.setDialogStage(dialogStage);
+            controller.displayListOfProducts(order.getListOfProducts());
+
+            dialogStage.showAndWait();
+            return controller.isButtonOkClicked();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public void initMainController(ProductsOverviewController productsOverviewController)
     {
         mainController = productsOverviewController;
     }
+
 }

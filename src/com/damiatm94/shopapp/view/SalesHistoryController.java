@@ -19,7 +19,7 @@ public class SalesHistoryController
 
     public void setItemsToList()
     {
-        historyList.setItems(SellDialogController.getItems());
+        historyList.setItems(OrderOrSaleInfoController.getItems());
     }
 
 }

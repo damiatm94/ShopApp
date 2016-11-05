@@ -32,7 +32,8 @@ public class SalesTabController implements ProductsListener
 {
     private ProductsOverviewController mainController;
 
-    @FXML private VBox container;
+    @FXML
+    private VBox container;
 
     private MainApp mainApp;
 
@@ -298,8 +299,8 @@ public class SalesTabController implements ProductsListener
             mainApp = new MainApp();
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/SellDialog.fxml"));
-            BorderPane sellDialogPane = loader.load();
+            loader.setLocation(MainApp.class.getResource("view/OrderOrSaleInfo.fxml"));
+            VBox sellDialogPane = loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
@@ -311,11 +312,11 @@ public class SalesTabController implements ProductsListener
             //dialogStage.setResizable(false);
             //primaryStage.setResizable(true);
 
-            // Set product into the controller.
-            SellDialogController controller = loader.getController();
+            OrderOrSaleInfoController controller = loader.getController();
             controller.initSalesTabMainController(this);
             controller.setDialogStage(dialogStage);
-            controller.displayListOfSellingProducts(productList);
+            controller.getTitleLabel().setText("Are you sure you want to sell these products?");
+            controller.displayListOfProducts(productList);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
