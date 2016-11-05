@@ -2,18 +2,13 @@ package com.damiatm94.shopapp.view;
 
 import com.damiatm94.shopapp.model.Order;
 import com.damiatm94.shopapp.model.Product;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -21,21 +16,15 @@ import java.util.Date;
  */
 public class OrderDialogController
 {
-    @FXML
-    private TableView<Product> ordersTable;
-    @FXML
-    private TableColumn<Product, String> orderNameColumn;
-    @FXML
-    private TableColumn<Product, Double> priceColumn;
-    @FXML
-    private TableColumn<Product, Integer> amountColumn;
+    @FXML private TableView<Product> ordersTable;
+    @FXML private TableColumn<Product, String> orderNameColumn;
+    @FXML private TableColumn<Product, Double> priceColumn;
+    @FXML private TableColumn<Product, Integer> amountColumn;
 
-    @FXML
-    private TextField orderNameField;
-    @FXML
-    private TextField priceField;
-    @FXML
-    private TextField amountField;
+    @FXML private TextField orderNameField;
+    @FXML private TextField priceField;
+    @FXML private TextField amountField;
+    @FXML private Button orderButton;
 
     ObservableList<Product> listOfProducts = FXCollections.observableArrayList();
 
@@ -56,6 +45,8 @@ public class OrderDialogController
         priceColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
         amountColumn.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
         ordersTable.setItems(listOfProducts);
+
+        orderButton.disableProperty().bind(Bindings.isEmpty(listOfProducts));
     }
 
     public void setDialogStage(Stage dialogStage)

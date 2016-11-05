@@ -9,29 +9,32 @@ import javafx.stage.Stage;
 /**
  * Created by damian on 01.11.16.
  */
-public class MadeOrderController
+public class MadeOrderInfoController
 {
     private Stage dialogStage;
     private boolean okClicked = false;
     private Order order;
 
-    @FXML
-    private VBox container;
+    @FXML private Label titleLabel;
+    @FXML private VBox container;
+
+    public Label getTitleLabel()
+    {
+        return titleLabel;
+    }
 
     public void setDialogStage(Stage dialogStage)
     {
         this.dialogStage = dialogStage;
     }
 
-    public MadeOrderController()
+    public MadeOrderInfoController()
     {
-
     }
 
     @FXML
     private void initialize()
     {
-
     }
 
     public boolean isOkClicked()

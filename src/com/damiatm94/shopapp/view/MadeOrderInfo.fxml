@@ -9,34 +9,57 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.damiatm94.shopapp.view.MadeOrderController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.damiatm94.shopapp.view.MadeOrderInfoController">
    <children>
-      <Label text="Label">
+      <Label fx:id="titleLabel" text="Label">
          <VBox.margin>
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin>
       </Label>
       <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <content>
-            <VBox fx:id="container" prefHeight="200.0" prefWidth="100.0" />
+            <VBox fx:id="container" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <padding>
+                        <Insets left="50.0" right="20.0" />
+                     </padding>
+                     <children>
+                        <Label text="Product Name" />
+                        <Label text="Price" GridPane.columnIndex="1" />
+                        <Label text="Amount" GridPane.columnIndex="2" />
+                     </children>
+                  </GridPane>
+               </children></VBox>
          </content></ScrollPane>
       <GridPane>
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="20.0" prefHeight="30.0" />
         </rowConstraints>
          <children>
-            <Label text="Label" />
-            <Label text="Label" GridPane.columnIndex="1" />
+            <Label text="Ordered" />
+            <Label text="Sum" GridPane.columnIndex="1" />
          </children>
          <padding>
             <Insets bottom="10.0" top="10.0" />
          </padding>
+         <VBox.margin>
+            <Insets left="50.0" right="70.0" />
+         </VBox.margin>
       </GridPane>
-      <Button mnemonicParsing="false" text="Button">
+      <Button mnemonicParsing="false" prefWidth="90.0" text="OK">
          <VBox.margin>
             <Insets bottom="30.0" top="10.0" />
          </VBox.margin>

@@ -14,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -233,9 +232,10 @@ public class OrdersTabController
             //dialogStage.setResizable(false);
             //primaryStage.setResizable(true);
 
-            dialogStage.setTitle("Info about: " + order.getName());
+            dialogStage.setTitle("Details");
 
-            MadeOrderController controller = loader.getController();
+            MadeOrderInfoController controller = loader.getController();
+            controller.getTitleLabel().setText("Info about: " + order.getName());
             controller.setDialogStage(dialogStage);
             controller.setMadeOrder(order);
 
