@@ -3,6 +3,7 @@ package com.damiatm94.shopapp.view;
 
 import com.damiatm94.shopapp.MainApp;
 import com.damiatm94.shopapp.model.Order;
+import com.damiatm94.shopapp.model.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -49,8 +50,10 @@ public class OrdersTabController
     Image confirmImage, showImage, undoImage;
     private GridPane gridPane;
 
-    @FXML private VBox madeOrdersVBox;
-    @FXML private ListView<Order> listView;
+    @FXML
+    private VBox madeOrdersVBox;
+    @FXML
+    private ListView<Order> listView;
 
     public ArrayList<Order> getOrdersList()
     {
@@ -106,19 +109,40 @@ public class OrdersTabController
     {
         Date dateOfDeliveryConfirmation = new Date();
         order.setDateOfDeliveryConfirmation(dateFormat.format(dateOfDeliveryConfirmation));
+        boolean isOrderedProductAlreadyExisting = false;
 
         for (int i = 0; i < order.getListOfProducts().size(); i++)
         {
-            getProductData().add(order.getListOfProducts().get(i));
-            mainController.getSalesTabController().addNewProduct(order.getListOfProducts().get(i));
+            //Searching if ordered product already exists
+            for (int j = 0; j < getProductData().size(); j++)
+            {
+                System.out.println("zamiawany: " + order.getListOfProducts().get(i).getProductName() +
+                        " | istniejący: " + getProductData().get(j).getProductName());
+                if (order.getListOfProducts().get(i).getProductName().equals(getProductData().get(j).getProductName())
+                        && order.getListOfProducts().get(i).getPrice() == getProductData().get(j).getPrice())
+                {
+                    System.out.println("Znalazłem produkt identyczny z zamawianym!");
+                    int newAmount = getProductData().get(j).getAmount() + order.getListOfProducts().get(i).getAmount();
+                    getProductData().get(j).setAmount(newAmount);
+                    mainController.getSalesTabController().setEditProductDetails(getProductData().get(j), j);
+                    isOrderedProductAlreadyExisting = true;
+                }
+            }
+            if (!isOrderedProductAlreadyExisting)
+            {
+                getProductData().add(order.getListOfProducts().get(i));
+                mainController.getSalesTabController().addNewProduct(order.getListOfProducts().get(i));
+            }
+
+            isOrderedProductAlreadyExisting = false;
         }
+
         listOfOrdersHistory.add(order);
     }
 
     public void handleButtonUndo(
             AnchorPane anchorPane, Label label, Button button1, Button button2, Button button3, Order order)
     {
-        System.out.println("Ilość zamówień przed UNDO: " + getOrdersList().size());
         ordersLabelsList.remove(label);
         showButtons.remove(button1);
         confirmButtons.remove(button2);
@@ -126,7 +150,6 @@ public class OrdersTabController
         madeOrdersVBox.getChildren().remove(anchorPane);
         rowAnchorList.remove(anchorPane);
         getOrdersList().remove(order);
-        System.out.println("Ilość zamówień po: " + getOrdersList().size());
     }
 
     public void handleButtonShowDetails()

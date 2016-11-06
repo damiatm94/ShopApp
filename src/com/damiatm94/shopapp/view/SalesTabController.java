@@ -268,13 +268,13 @@ public class SalesTabController implements ProductsListener
         anchorPanes.remove(selectedIndexForSales);
     }
 
-    private void setEditProductDetails(Product product)
+    public void setEditProductDetails(Product product, int selectedIndex)
     {
         if (product != null)
         {
-            labels.get(3 * selectedIndexForSales).setText(product.getProductName());
-            labels.get(3 * selectedIndexForSales + 1).setText(Double.toString(product.getPrice()));
-            labels.get(3 * selectedIndexForSales + 2).setText(Integer.toString(product.getAmount()));
+            labels.get(3 * selectedIndex).setText(product.getProductName());
+            labels.get(3 * selectedIndex + 1).setText(Double.toString(product.getPrice()));
+            labels.get(3 * selectedIndex + 2).setText(Integer.toString(product.getAmount()));
         }
     }
 
@@ -289,7 +289,7 @@ public class SalesTabController implements ProductsListener
     @Override
     public void editProduct()
     {
-        setEditProductDetails(selectedSalesProduct);
+        setEditProductDetails(selectedSalesProduct, selectedIndexForSales);
     }
 
     public boolean showSellDialog(List<Product> productList)
